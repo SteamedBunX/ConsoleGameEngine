@@ -19,14 +19,15 @@ namespace ConsoleGameEngine
 
 
         // Image Loading Component
-        public static List<Image> LoadImages(string folderPath)
+        public static Dictionary<string, Image> LoadImages(string folderPath)
         {
-            List<Image> images = new List<Image>();
+            Dictionary<string, Image> images = new Dictionary<string, Image>();
             foreach (string f in Directory.GetFiles(folderPath))
             {
                 if (f.Substring(f.Length - 3).ToLower() == ".ci")
                 {
-                    images.Add(LoadImage(f));
+                    Image image = LoadImage(f);
+                    images.Add(image.Name, image);
                 }
             }
             return images;
