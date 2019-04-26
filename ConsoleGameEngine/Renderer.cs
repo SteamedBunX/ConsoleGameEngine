@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleGameEngine
 {
-    public class Class1
+    class Renderer
     {
     }
 }
