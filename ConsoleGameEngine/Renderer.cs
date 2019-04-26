@@ -20,11 +20,15 @@ namespace ConsoleGameEngine
 
         public static void PrintImage(Image image, IntXYPair position)
         {
+            // isolate the Y for incrementing as each line is printed
             int row = position.y;
             foreach (string line in image.Bitmap)
             {
+                //go to the starting point
                 Console.SetCursorPosition(position.x, row);
                 char[] nextLine = line.ToCharArray();
+
+                //pixels are read by 2, corresponding to the top half and the bottem halve of the space.
                 for (int i = 0; i < nextLine.Length; i += 2)
                 {
                     string nextPixel = nextLine[i] + "";
@@ -33,12 +37,17 @@ namespace ConsoleGameEngine
                     nextPixel = nextLine[i + 1] + "";
                     nextColorIndex = Convert.ToInt32(nextPixel, 16);
                     setBackground(nextColorIndex, image.Colors);
+                    // A special character recognized by console that covers excactly the top half of the space
+                    // it's also very square.
                     Console.Write("▀");
                 }
                 row++;
             }
         }
 
+
+        // since colors are represented by hex number inside the "bitmap"s , they need to be read accordingly
+        // with the actual list of color.
         public static void setForeground(int colorIndex, List<Color> colors)
         {
             if (colorIndex == 0)
