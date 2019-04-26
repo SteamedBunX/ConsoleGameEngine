@@ -48,7 +48,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Images\Pikachu.ci" />
+    <None Include="Images\Pikachu.ci">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleGameEngine\ConsoleGameEngine.csproj">
+      <Project>{6d7cde13-1ee0-450f-b7e8-7e958e5d32f3}</Project>
+      <Name>ConsoleGameEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
