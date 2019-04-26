@@ -29,5 +29,10 @@ namespace ConsoleGameEngine.Components
         {
             images.Clear();
         }
+
+        public Image GetImage(string name)
+        {
+            return images[name];
+        }
     }
 }

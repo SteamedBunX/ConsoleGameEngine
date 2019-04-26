@@ -24,6 +24,7 @@ namespace ConsoleGameEngine
             Dictionary<string, Image> images = new Dictionary<string, Image>();
             foreach (string f in Directory.GetFiles(folderPath))
             {
+                //Need to make sure the file is actually .ci before loading, to prevent errors.
                 if (f.Substring(f.Length - 3).ToLower() == ".ci")
                 {
                     Image image = LoadImage(f);
@@ -72,7 +73,7 @@ namespace ConsoleGameEngine
             {
                 Name = name,
                 Colors = colors,
-                BitMap = bitmap
+                Bitmap = bitmap
             };
         }
 

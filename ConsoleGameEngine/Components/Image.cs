@@ -11,6 +11,6 @@ namespace ConsoleGameEngine.Components
     {
         public string Name { get; set; }
         public List<Color> Colors { get; set; }
-        public List<string> BitMap { get; set; }
+        public List<string> Bitmap { get; set; }
     }
 }
