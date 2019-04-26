@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleGameEngine.Components
 {
-    public class ObjectHandler
+    public class ComponentHandler
     {
         List<Image> images = new List<Image>();
 
