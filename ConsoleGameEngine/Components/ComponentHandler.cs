@@ -30,9 +30,14 @@ namespace ConsoleGameEngine.Components
             images.Clear();
         }
 
-        public Image GetImage(string name)
+        public void PrintImage(string name, IntXYPair position)
         {
-            return images[name];
+            if (images.ContainsKey(name))
+            {
+                Renderer.PrintImage(images[name],position);
+            }
         }
+
+
     }
 }
