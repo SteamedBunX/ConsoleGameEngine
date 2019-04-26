@@ -9,9 +9,14 @@ namespace ConsoleGameEngine
 {
     public static class Renderer
     { 
-        public static void PrintImage(Image image)
+        public static void PrintImage(Image image, IntXYPair location)
         {
 
+        }
+
+        public static void PrintImage(Image image, int x, int y)
+        {
+            PrintImage(image, new IntXYPair(x, y));
         }
     }
 }
