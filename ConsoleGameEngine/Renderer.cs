@@ -11,7 +11,7 @@ using Image = ConsoleGameEngine.Components.Image;
 namespace ConsoleGameEngine
 {
     public static class Renderer
-    { 
+    {
 
         public static void PrintImage(Image image, int x, int y)
         {
@@ -22,41 +22,58 @@ namespace ConsoleGameEngine
         {
             // isolate the Y for incrementing as each line is printed
             int row = position.y;
-            foreach (string line in image.Bitmap)
+            for (int i = 0; i < image.Bitmap.Count; i += 2)
             {
-                //go to the starting point
                 Console.SetCursorPosition(position.x, row);
-                char[] nextLine = line.ToCharArray();
+                char[] nextLine1 = image.Bitmap[i].ToCharArray();
+                char[] nextLine2;
 
-                //pixels are read by 2, corresponding to the top half and the bottem halve of the space.
-                for (int i = 0; i < nextLine.Length; i += 2)
+                if (i + 1 >= image.Bitmap.Count)
                 {
-                    string nextPixel = nextLine[i] + "";
-                    int nextColorIndex = Convert.ToInt32(nextPixel, 16);
-                    setForeground(nextColorIndex, image.Colors);
-                    nextPixel = nextLine[i + 1] + "";
-                    nextColorIndex = Convert.ToInt32(nextPixel, 16);
-                    setBackground(nextColorIndex, image.Colors);
+                    nextLine2 = new string('0', image.Bitmap[i].Count()).ToCharArray();
+                }
+                else
+                {
+                    nextLine2 = image.Bitmap[i + 1].ToCharArray();
+                }
+
+                for (int j = 0; j < nextLine1.Length; j++)
+                {
+                    string nextPixel = nextLine1[j] + "";
+                    int nextColorIndex;
+                    nextColorIndex = GetPixelCode(nextPixel);
+                    SetForeground(nextColorIndex, image.Colors);
+
+                    nextPixel = nextLine2[j] + "";
+                    nextColorIndex = GetPixelCode(nextPixel);
+                    SetBackground(nextColorIndex, image.Colors);
                     // A special character recognized by console that covers excactly the top half of the space
                     // it's also very square.
                     Console.Write("▀");
                 }
+
+
                 row++;
             }
+        }
+
+        private static int GetPixelCode(string nextPixel)
+        {
+            if (nextPixel == "T")
+            {
+                return 0;
+            }
+            return Convert.ToInt32(nextPixel, 16);
         }
 
 
         // since colors are represented by hex number inside the "bitmap"s , they need to be read accordingly
         // with the actual list of color.
-        public static void setForeground(int colorIndex, List<Color> colors)
+        public static void SetForeground(int colorIndex, List<Color> colors)
         {
             if (colorIndex == 0)
             {
-                Console.ForegroundColor = Color.FromArgb(12, 12, 12);
-            }
-            else if (colorIndex == 15)
-            {
-                Console.ForegroundColor = Color.White;
+                System.Console.ForegroundColor = ConsoleColor.Black;
             }
             else
             {
@@ -64,20 +81,21 @@ namespace ConsoleGameEngine
             }
         }
 
-        public static void setBackground(int colorIndex, List<Color> colors)
+        public static void SetBackground(int colorIndex, List<Color> colors)
         {
             if (colorIndex == 0)
             {
-                Console.BackgroundColor = Color.FromArgb(12, 12, 12);
-            }
-            else if (colorIndex == 15)
-            {
-                Console.BackgroundColor = Color.White;
+                System.Console.BackgroundColor = ConsoleColor.Black;
             }
             else
             {
                 Console.BackgroundColor = colors[colorIndex - 1];
             }
+        }
+
+        public static void ResetConsoleColor()
+        {
+            Console.ReplaceAllColorsWithDefaults();
         }
     }
 }

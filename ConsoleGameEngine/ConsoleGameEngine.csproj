@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Canvas.cs" />
     <Compile Include="Components\Image.cs" />
     <Compile Include="Components\ComponentHandler.cs" />
     <Compile Include="CustomStructs.cs" />
