@@ -52,7 +52,6 @@ namespace ConsoleGameEngine
                     Console.Write("▀");
                 }
 
-
                 row++;
             }
         }
