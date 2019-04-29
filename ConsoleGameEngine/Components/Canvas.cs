@@ -19,7 +19,7 @@ namespace ConsoleGameEngine.Components
         {
             size = new IntXYPair(sizeX, sizeY);
             position = new IntXYPair(positionX, positionY);
-            int[,] bitmap = new int[sizeX, sizeY];
+            bitmap = new int[sizeX, sizeY];
             bitmap.FillArray(0);
         }
 
@@ -27,7 +27,7 @@ namespace ConsoleGameEngine.Components
         {
             this.size = size;
             this.position = position;
-            int[,] bitmap = new int[size.x, size.y];
+            bitmap = new int[size.x, size.y];
             bitmap.FillArray(0);
         }
 
