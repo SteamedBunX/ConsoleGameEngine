@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ConsoleGameEngine.Components;
+using ConsoleGameEngine;
 
 namespace Demo
 {
@@ -14,6 +15,7 @@ namespace Demo
             ComponentHandler cHandler = new ComponentHandler();
             string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
             cHandler.LoadImages(imageFolderPath);
+            cHandler.PrintImage("Pikachu", 0, 0);
         }
     }
 }

@@ -38,6 +38,11 @@ namespace ConsoleGameEngine.Components
             }
         }
 
+        public void PrintImage(string name, int x, int y)
+        {
+            PrintImage(name, new IntXYPair(x, y));
+        }
+
 
     }
 }
