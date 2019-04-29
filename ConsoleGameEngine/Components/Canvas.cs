@@ -31,6 +31,11 @@ namespace ConsoleGameEngine.Components
             bitmap.FillArray(0);
         }
 
+        public void Reset()
+        {
+            colors.Clear();
+            bitmap.FillArray(0);
+        }
         
     }
 
