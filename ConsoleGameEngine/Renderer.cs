@@ -13,6 +13,31 @@ namespace ConsoleGameEngine
     public static class Renderer
     {
 
+        public static void PrintCanvas(Canvas canvas)
+        {
+            int[,] bitmap = canvas.GetBitmap();
+            List<Color> colors = canvas.GetColors();
+            int row = canvas.GetPosition().y;
+            for (int y = 0; y < bitmap.GetLength(0); y += 2)
+            {
+                Console.SetCursorPosition(canvas.GetPosition().x, row);
+                
+                for (int x = 0; x < bitmap.GetLength(1); x++)
+                {
+                    int nextColorIndex = bitmap[x, y];
+                    SetForeground(nextColorIndex, colors);
+
+                    nextColorIndex = bitmap[x, y + 1];
+                    SetBackground(nextColorIndex, colors);
+                    // A special character recognized by console that covers excactly the top half of the space
+                    // it's also very square.
+                    Console.Write("▀");
+                }
+
+                row++;
+            }
+        }
+
         public static void PrintImage(Image image, int x, int y)
         {
             PrintImage(image, new IntXYPair(x, y));

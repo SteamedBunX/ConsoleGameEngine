@@ -47,6 +47,20 @@ namespace ConsoleGameEngine.Components
             this.position = position;
         }
 
+        public IntXYPair GetPosition()
+        {
+            return position;
+        }
+
+        public List<Color> GetColors()
+        {
+            return colors;
+        }
+
+        public int[,] GetBitmap()
+        {
+            return bitmap;
+        }
 
     }
 
