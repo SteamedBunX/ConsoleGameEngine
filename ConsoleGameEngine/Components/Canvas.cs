@@ -19,7 +19,7 @@ namespace ConsoleGameEngine.Components
         {
             size = new IntXYPair(sizeX, sizeY);
             position = new IntXYPair(positionX, positionY);
-            int[,] bitmap = new int[sizeX,sizeY];
+            int[,] bitmap = new int[sizeX, sizeY];
             bitmap.FillArray(0);
         }
 
@@ -36,7 +36,18 @@ namespace ConsoleGameEngine.Components
             colors.Clear();
             bitmap.FillArray(0);
         }
-        
+
+        public void Move(int positionX, int positionY)
+        {
+            Move(new IntXYPair(positionX, positionY));
+        }
+
+        public void Move(IntXYPair position)
+        {
+            this.position = position;
+        }
+
+
     }
 
     public static class ExtentionMethod
