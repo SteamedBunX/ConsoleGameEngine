@@ -50,15 +50,12 @@ namespace ConsoleGameEngine
             string nextColor = img.ReadLine();
             do
             {
+                colorsInHax.Add(nextColor);
+                nextColor = img.ReadLine();
                 if (nextColor == "")
                 {
                     colorSet = true;
                 }
-                else
-                {
-                    colorsInHax.Add(nextColor);
-                }
-                nextColor = img.ReadLine();
             } while (!colorSet);
             colors = FillColor(colorsInHax);
 

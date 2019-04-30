@@ -21,7 +21,7 @@ namespace ConsoleGameEngine
             for (int y = 0; y < bitmap.GetLength(0); y += 2)
             {
                 Console.SetCursorPosition(canvas.GetPosition().x, row);
-                
+
                 for (int x = 0; x < bitmap.GetLength(1); x++)
                 {
                     int nextColorIndex = bitmap[x, y];
@@ -55,7 +55,7 @@ namespace ConsoleGameEngine
 
                 if (i + 1 >= image.Bitmap.Count)
                 {
-                    nextLine2 = new string('0', image.Bitmap[i].Count()).ToCharArray();
+                    nextLine2 = new string('Z', image.Bitmap[i].Count()).ToCharArray();
                 }
                 else
                 {
@@ -83,9 +83,13 @@ namespace ConsoleGameEngine
 
         private static int GetPixelCode(string nextPixel)
         {
-            if (nextPixel == "T")
+            if (nextPixel == "T" || nextPixel == "Z")
             {
-                return 0;
+                return 16;
+            }
+            if (nextPixel == "W")
+            {
+                return 15;
             }
             return Convert.ToInt32(nextPixel, 16);
         }
@@ -95,25 +99,33 @@ namespace ConsoleGameEngine
         // with the actual list of color.
         public static void SetForeground(int colorIndex, List<Color> colors)
         {
-            if (colorIndex == 0)
+            if (colorIndex == 16)
             {
                 System.Console.ForegroundColor = ConsoleColor.Black;
             }
+            else if (colorIndex == 15)
+            {
+                System.Console.ForegroundColor = ConsoleColor.White;
+            }
             else
             {
-                Console.ForegroundColor = colors[colorIndex - 1];
+                Console.ForegroundColor = colors[colorIndex];
             }
         }
 
         public static void SetBackground(int colorIndex, List<Color> colors)
         {
-            if (colorIndex == 0)
+            if (colorIndex == 16)
             {
                 System.Console.BackgroundColor = ConsoleColor.Black;
             }
+            else if (colorIndex == 15)
+            {
+                System.Console.BackgroundColor = ConsoleColor.White;
+            }
             else
             {
-                Console.BackgroundColor = colors[colorIndex - 1];
+                Console.BackgroundColor = colors[colorIndex];
             }
         }
 
