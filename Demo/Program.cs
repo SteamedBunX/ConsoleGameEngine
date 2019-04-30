@@ -12,15 +12,30 @@ namespace Demo
     {
         static void Main(string[] args)
         {
+            Program p = new Program();
+            p.CanvasDemo();
+        }
+
+        public void ImageDemo()
+        {
             ComponentHandler cHandler = new ComponentHandler();
             string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
             cHandler.LoadImages(imageFolderPath);
-            //cHandler.PrintImage("Pikachu", 0, 0);
+            cHandler.PrintImage("Pikachu", 0, 0);
+        }
+
+        public void CanvasDemo()
+        {
+            ComponentHandler cHandler = new ComponentHandler();
+            string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
+            cHandler.LoadImages(imageFolderPath);
             bool exit = false;
 
             IntXYPair canvasPosition = new IntXYPair(5, 5);
             IntXYPair pikachuPosition = new IntXYPair(5, 5);
             cHandler.AddCanvas("BaseCanvas", new IntXYPair(20, 20), canvasPosition);
+
+            Console.CursorVisible = false;
 
             while (!exit)
             {
