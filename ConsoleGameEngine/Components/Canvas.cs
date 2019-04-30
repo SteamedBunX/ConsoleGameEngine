@@ -34,7 +34,7 @@ namespace ConsoleGameEngine.Components
         public void Reset()
         {
             colors.Clear();
-            bitmap.FillArray(0);
+            bitmap.FillArray(16);
         }
 
         public void Move(int positionX, int positionY)
