@@ -50,14 +50,24 @@ namespace ConsoleGameEngine.Components
         public void DrawImage(Image image, IntXYPair position)
         {
             //load the colors, and keep track of the color conversion
-            Dictionary<int, int> colorMap = new Dictionary<int, int>();
-            // black stays at 0
-            colorMap[0] = 0;
-            int initialIndex = colors.Count();
-            // start at 1 as this is where the color starts, and black is not loaded into the colors
-            for(int i = 1; i <= image.Colors.Count; i++)
+            Dictionary<int, int> colorMap = new Dictionary<int, int>
             {
-
+                // black and white
+                [15] = 15,
+                [16] = 16
+            };
+            int initialIndex = colors.Count();
+            for (int i = 0; i <= image.Colors.Count; i++)
+            {
+                if (colors.Any(x => x.ToArgb() == image.Colors[i].ToArgb()))
+                {
+                    colorMap[i] = colors.FindIndex(x => x.ToArgb() == image.Colors[i].ToArgb());
+                }
+                else
+                {
+                    colors.Add(image.Colors[i]);
+                    colorMap[i] = colors.Count - 1;
+                }
             }
 
 
@@ -68,9 +78,18 @@ namespace ConsoleGameEngine.Components
             {
                 for (int x = 0; x < rightLimit; x++)
                 {
-                    if (image.Bitmap[y][x] != 'T')
+                    char currentPixel = image.Bitmap[y][x];
+                    if (currentPixel != 'T')
                     {
-                        bitmap[x, y] = Convert.ToInt32(image.Bitmap[y][x].ToString());
+                        if (currentPixel == 'W')
+                        {
+                            bitmap[x, y] = 15;
+                        }
+                        if (currentPixel == 'Z')
+                        {
+                            bitmap[x, y] = 16;
+                        }
+                        bitmap[x, y] = colorMap[Convert.ToInt32(image.Bitmap[y][x].ToString())];
                     }
 
                 }

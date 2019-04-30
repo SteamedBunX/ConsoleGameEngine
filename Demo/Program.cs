@@ -15,6 +15,7 @@ namespace Demo
             ComponentHandler cHandler = new ComponentHandler();
             string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
             cHandler.LoadImages(imageFolderPath);
+
             cHandler.PrintImage("Pikachu", 0, 0);
             Console.ReadLine();
             Renderer.ResetConsoleColor();

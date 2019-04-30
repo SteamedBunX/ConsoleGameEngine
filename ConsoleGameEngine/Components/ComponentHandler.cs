@@ -9,13 +9,48 @@ namespace ConsoleGameEngine.Components
     public class ComponentHandler
     {
         Dictionary<string, Image> images = new Dictionary<string, Image>();
+        Dictionary<string, Canvas> canvases = new Dictionary<string, Canvas>();
+
+        public void AddCanvas(string name, IntXYPair size, IntXYPair position)
+        {
+            canvases[name] = new Canvas(size, position);
+        }
+
+        public void ClearCanvas(string name)
+        {
+            if (canvases.ContainsKey(name))
+            {
+                canvases[name].Reset();
+            }
+        }
+
+        public void RemoveCanvas(string name)
+        {
+            if (canvases.ContainsKey(name))
+            {
+                canvases.Remove(name);
+            }
+        }
+
+        public void RemoveAllCanvas()
+        {
+            canvases.Clear();
+        }
+
+        public void PrintCanvas(string name)
+        {
+            if (canvases.ContainsKey(name))
+            {
+                Renderer.PrintCanvas(canvases[name]);
+            }
+        }
 
         public void LoadImages(string folderPath)
         {
             var imageList = Loader.LoadImages(folderPath);
-            foreach(var item in imageList)
+            foreach (var item in imageList)
             {
-                images.Add(item.Key,item.Value);
+                images.Add(item.Key, item.Value);
             }
         }
 
@@ -34,7 +69,7 @@ namespace ConsoleGameEngine.Components
         {
             if (images.ContainsKey(name))
             {
-                Renderer.PrintImage(images[name],position);
+                Renderer.PrintImage(images[name], position);
             }
         }
 
