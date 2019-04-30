@@ -20,7 +20,7 @@ namespace ConsoleGameEngine.Components
             size = new IntXYPair(sizeX, sizeY);
             position = new IntXYPair(positionX, positionY);
             bitmap = new int[sizeX, sizeY];
-            bitmap.FillArray(0);
+            bitmap.FillArray(16);
         }
 
         public Canvas(IntXYPair size, IntXYPair position)
@@ -28,7 +28,7 @@ namespace ConsoleGameEngine.Components
             this.size = size;
             this.position = position;
             bitmap = new int[size.x, size.y];
-            bitmap.FillArray(0);
+            bitmap.FillArray(16);
         }
 
         public void Reset()
@@ -57,7 +57,7 @@ namespace ConsoleGameEngine.Components
                 [16] = 16
             };
             int initialIndex = colors.Count();
-            for (int i = 0; i <= image.Colors.Count; i++)
+            for (int i = 0; i < image.Colors.Count; i++)
             {
                 if (colors.Any(x => x.ToArgb() == image.Colors[i].ToArgb()))
                 {
@@ -71,25 +71,30 @@ namespace ConsoleGameEngine.Components
             }
 
 
-
             int rightLimit = Math.Min(bitmap.GetLength(1), position.x + image.Bitmap[0].Length) - position.x;
             int bottemLimit = Math.Min(bitmap.GetLength(0), position.y + image.Bitmap.Count) - position.y;
-            for (int y = 0; y < bottemLimit; y++)
+            int topLimit = Math.Max(0, 0 - position.y);
+            int leftLimit = Math.Max(0, 0 - position.x);
+
+            for (int y = topLimit; y < bottemLimit; y++)
             {
-                for (int x = 0; x < rightLimit; x++)
+                for (int x = leftLimit; x < rightLimit; x++)
                 {
                     char currentPixel = image.Bitmap[y][x];
                     if (currentPixel != 'T')
                     {
                         if (currentPixel == 'W')
                         {
-                            bitmap[x, y] = 15;
+                            bitmap[x + position.x, y + position.y] = 15;
                         }
-                        if (currentPixel == 'Z')
+                        else if (currentPixel == 'Z')
                         {
-                            bitmap[x, y] = 16;
+                            bitmap[x + position.x, y + position.y] = 16;
                         }
-                        bitmap[x, y] = colorMap[Convert.ToInt32(image.Bitmap[y][x].ToString())];
+                        else
+                        {
+                            bitmap[x + position.x, y + position.y] = colorMap[Convert.ToInt32(image.Bitmap[y][x].ToString())];
+                        }
                     }
 
                 }

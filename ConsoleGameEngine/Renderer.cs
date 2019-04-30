@@ -27,13 +27,19 @@ namespace ConsoleGameEngine
                     int nextColorIndex = bitmap[x, y];
                     SetForeground(nextColorIndex, colors);
 
-                    nextColorIndex = bitmap[x, y + 1];
-                    SetBackground(nextColorIndex, colors);
+                    if (y < bitmap.GetLength(0))
+                    {
+                        nextColorIndex = bitmap[x, y + 1];
+                        SetBackground(nextColorIndex, colors);
+                    }
+                    else
+                    {
+                        System.Console.BackgroundColor = ConsoleColor.Black;
+                    }
                     // A special character recognized by console that covers excactly the top half of the space
                     // it's also very square.
                     Console.Write("▀");
                 }
-
                 row++;
             }
         }

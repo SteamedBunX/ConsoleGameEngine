@@ -15,11 +15,51 @@ namespace Demo
             ComponentHandler cHandler = new ComponentHandler();
             string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
             cHandler.LoadImages(imageFolderPath);
+            //cHandler.PrintImage("Pikachu", 0, 0);
+            bool exit = false;
 
-            cHandler.PrintImage("Pikachu", 0, 0);
-            Console.ReadLine();
-            Renderer.ResetConsoleColor();
-            Console.ReadLine();
+            IntXYPair canvasPosition = new IntXYPair(5, 5);
+            IntXYPair pikachuPosition = new IntXYPair(5, 5);
+            cHandler.AddCanvas("BaseCanvas", new IntXYPair(20, 20), canvasPosition);
+
+            while (!exit)
+            {
+                cHandler.ClearCanvas("BaseCanvas");
+                cHandler.DrawToCanvas("BaseCanvas", "Pikachu", pikachuPosition);
+                cHandler.PrintCanvas("BaseCanvas");
+                var input = Console.ReadKey();
+                switch (input.Key)
+                {
+                    case ConsoleKey.Escape:
+                        exit = true;
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        pikachuPosition.x--;
+                        break;
+                    case ConsoleKey.UpArrow:
+                        pikachuPosition.y--;
+                        break;
+                    case ConsoleKey.RightArrow:
+                        pikachuPosition.x++;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        pikachuPosition.y++;
+                        break;
+
+                    case ConsoleKey.A:
+                        break;
+                    case ConsoleKey.D:
+                        break;
+                    case ConsoleKey.S:
+                        break;
+                    case ConsoleKey.W:
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
         }
     }
 }

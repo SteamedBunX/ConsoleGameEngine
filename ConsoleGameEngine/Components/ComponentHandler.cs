@@ -16,6 +16,11 @@ namespace ConsoleGameEngine.Components
             canvases[name] = new Canvas(size, position);
         }
 
+        public void DrawToCanvas(string canvasName, string imageName, IntXYPair position)
+        {
+            canvases[canvasName].DrawImage(images[imageName], position);
+        }
+
         public void ClearCanvas(string name)
         {
             if (canvases.ContainsKey(name))
