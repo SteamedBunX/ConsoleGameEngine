@@ -16,6 +16,11 @@ namespace ConsoleGameEngine.Components
             canvases[name] = new Canvas(size, position);
         }
 
+        public void MoveCanvas(string name, IntXYPair position)
+        {
+            canvases[name].Move(position);
+        }
+
         public void DrawToCanvas(string canvasName, string imageName, IntXYPair position)
         {
             canvases[canvasName].DrawImage(images[imageName], position);

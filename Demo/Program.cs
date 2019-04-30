@@ -25,6 +25,7 @@ namespace Demo
             while (!exit)
             {
                 cHandler.ClearCanvas("BaseCanvas");
+                cHandler.MoveCanvas("BaseCanvas", canvasPosition);
                 cHandler.DrawToCanvas("BaseCanvas", "Pikachu", pikachuPosition);
                 cHandler.PrintCanvas("BaseCanvas");
                 var input = Console.ReadKey();
@@ -47,12 +48,16 @@ namespace Demo
                         break;
 
                     case ConsoleKey.A:
+                        canvasPosition.x--;
                         break;
                     case ConsoleKey.D:
+                        canvasPosition.x++;
                         break;
                     case ConsoleKey.S:
+                        canvasPosition.y++;
                         break;
                     case ConsoleKey.W:
+                        canvasPosition.y--;
                         break;
 
                     default:
