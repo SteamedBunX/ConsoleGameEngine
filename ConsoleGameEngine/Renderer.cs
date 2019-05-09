@@ -65,41 +65,49 @@ namespace ConsoleGameEngine
         public static void PrintImage(Image image, IntXYPair position)
         {
             // isolate the Y for incrementing as each line is printed
-            int row = position.y;
-            for (int i = 0; i < image.Bitmap.Count; i += 2)
+
+            if (position.x < Console.BufferWidth && position.x + image.Bitmap[0].Length > 0
+                && position.y < Console.BufferHeight && position.getY() + image.Bitmap.Count > 0)
             {
-                Console.SetCursorPosition(position.x, row);
-                char[] nextLine1 = image.Bitmap[i].ToCharArray();
-                char[] nextLine2;
+                int leftLimit = Math.Max(0, 0 - position.x);
+                int topLimit = Math.Max(0, 0 - position.y);
+                int row = Math.Max(position.y, 0);
 
-                if (i + 1 >= image.Bitmap.Count)
+                for (int i = topLimit; i < image.Bitmap.Count; i += 2)
                 {
-                    nextLine2 = new string('Z', image.Bitmap[i].Count()).ToCharArray();
-                }
-                else
-                {
-                    nextLine2 = image.Bitmap[i + 1].ToCharArray();
-                }
+                    Console.SetCursorPosition(position.x, row);
+                    char[] nextLine1 = image.Bitmap[i].ToCharArray();
+                    char[] nextLine2;
 
-                for (int j = 0; j < nextLine1.Length; j++)
-                {
-                    string nextPixel = nextLine1[j] + "";
-                    int nextColorIndex;
-                    nextColorIndex = GetPixelCode(nextPixel);
-                    SetForeground(nextColorIndex, image.Colors);
+                    if (i + 1 >= image.Bitmap.Count)
+                    {
+                        nextLine2 = new string('Z', image.Bitmap[i].Count()).ToCharArray();
+                    }
+                    else
+                    {
+                        nextLine2 = image.Bitmap[i + 1].ToCharArray();
+                    }
 
-                    nextPixel = nextLine2[j] + "";
-                    nextColorIndex = GetPixelCode(nextPixel);
-                    SetBackground(nextColorIndex, image.Colors);
-                    // A special character recognized by console that covers excactly the top half of the space
-                    // it's also very square.
-                    Console.Write("▀");
+                    for (int j = leftLimit; j < Math.Min(nextLine1.Length, Console.BufferWidth - position.y); j++)
+                    {
+                        string nextPixel = nextLine1[j] + "";
+                        int nextColorIndex;
+                        nextColorIndex = GetPixelCode(nextPixel);
+                        SetForeground(nextColorIndex, image.Colors);
+
+                        nextPixel = nextLine2[j] + "";
+                        nextColorIndex = GetPixelCode(nextPixel);
+                        SetBackground(nextColorIndex, image.Colors);
+                        // A special character recognized by console that covers excactly the top half of the space
+                        // it's also very square.
+                        Console.Write("▀");
+                    }
+
+                    row++;
                 }
-
-                row++;
+                System.Console.BackgroundColor = ConsoleColor.Black;
+                System.Console.ForegroundColor = ConsoleColor.White;
             }
-            System.Console.BackgroundColor = ConsoleColor.Black;
-            System.Console.ForegroundColor = ConsoleColor.White;
         }
 
         private static int GetPixelCode(string nextPixel)
