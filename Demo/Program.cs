@@ -84,7 +84,7 @@ namespace Demo
 
         public void BorderDemo()
         {
-            Border border = new Border(-1, -2, 20, 10);
+            Border border = new Border(-1, -2, 40, 20);
 
             bool exit = false;
             while (!exit)
