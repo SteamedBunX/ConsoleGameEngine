@@ -57,18 +57,18 @@ namespace ConsoleGameEngine
 
         public Border(IntXYPair position, IntXYPair size)
         {
-            sizeX = size.x;
-            sizeY = size.y;
             positionX = position.x;
             positionY = position.y;
+            sizeX = Math.Max(size.x, 2);
+            sizeY = Math.Max(size.y, 2);
         }
 
         public Border(int positionX, int positionY, int sizeX, int sizeY)
         {
             this.positionX = positionX;
             this.positionY = positionY;
-            this.sizeX = sizeX;
-            this.sizeY = sizeY;
+            this.sizeX = Math.Max(sizeX, 2);
+            this.sizeY = Math.Max(sizeY, 2);
         }
 
         public void Move(int positionX, int positionY)
