@@ -20,10 +20,9 @@ namespace ConsoleGameEngine
             int leftLimit = Math.Max(0, 0 - canvas.GetPosition().x);
             int topLimit = Math.Max(0, 0 - canvas.GetPosition().y);
             int row = Math.Max(canvas.GetPosition().y, 0);
-            for (int y = topLimit; y < bitmap.GetLength(0); y += 2)
+            if (canvas.GetPosition().x < Console.BufferWidth)
             {
-
-                if (canvas.GetPosition().x < Console.BufferWidth)
+                for (int y = topLimit; y < bitmap.GetLength(0); y += 2)
                 {
                     if (row < Console.WindowHeight)
                     {
@@ -49,11 +48,10 @@ namespace ConsoleGameEngine
                                 // it's also very square.
                                 Console.Write("▀");
                             }
-
                         }
                     }
+                    row++;
                 }
-                row++;
             }
             System.Console.BackgroundColor = ConsoleColor.Black;
             System.Console.ForegroundColor = ConsoleColor.White;
@@ -119,17 +117,24 @@ namespace ConsoleGameEngine
 
 
         // Menu related endering methods
+
+
         public static void PrintBorder(Border border)
         {
-            System.Console.BackgroundColor = ConsoleColor.Black;
             string ceilingAndFloor = "";
             string middleSpace = "";
+
+            int leftLimit = Math.Max(0, 0 - border.positionX);
+            int topLimit = Math.Max(0, 0 - border.positionY);
+            int row = Math.Max(border.positionY, 0);
+
             for (int i = 0; i < border.sizeX - 2; i++)
             {
                 ceilingAndFloor += "═";
                 middleSpace += " ";
             }
-            for (int y = 0; y < border.sizeY; y++)
+
+            for (int y = topLimit; y < border.sizeY; y++)
             {
                 Console.SetCursorPosition(border.positionX, border.positionY + y);
                 if (y == 0)
@@ -186,6 +191,35 @@ namespace ConsoleGameEngine
         public static void ResetConsoleColor()
         {
             Console.ReplaceAllColorsWithDefaults();
+        }
+
+        public static void SetColors(Color foregroundColor, Color backgroundColor)
+        {
+            if (foregroundColor.ToArgb() == Color.Black.ToArgb())
+            {
+                System.Console.ForegroundColor = ConsoleColor.Black;
+            }
+            else if (foregroundColor.ToArgb() == Color.White.ToArgb())
+            {
+                System.Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = foregroundColor;
+            }
+
+            if (backgroundColor.ToArgb() == Color.Black.ToArgb())
+            {
+                System.Console.BackgroundColor = ConsoleColor.Black;
+            }
+            else if (backgroundColor.ToArgb() == Color.White.ToArgb())
+            {
+                System.Console.BackgroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.BackgroundColor = foregroundColor;
+            }
         }
     }
 }

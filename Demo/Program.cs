@@ -84,7 +84,7 @@ namespace Demo
 
         public void BorderDemo()
         {
-            Border border = new Border(0, 0, 0, 0);
+            Border border = new Border(-1, -2, 20, 10);
             Renderer.PrintBorder(border);
         }
     }
