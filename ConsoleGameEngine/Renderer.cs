@@ -116,7 +116,7 @@ namespace ConsoleGameEngine
         }
 
 
-        // Menu related endering methods
+        // Menu related rendering methods
 
 
         public static void PrintBorder(Border border)
@@ -196,6 +196,22 @@ namespace ConsoleGameEngine
             }
         }
 
+        public static void SetForeground(Color color)
+        {
+            if (color.ToArgb() == Color.Black.ToArgb())
+            {
+                System.Console.ForegroundColor = ConsoleColor.Black;
+            }
+            else if (color.ToArgb() == Color.White.ToArgb())
+            {
+                System.Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = color;
+            }
+        }
+
         public static void SetBackground(int colorIndex, List<Color> colors)
         {
             if (colorIndex == 16)
@@ -212,38 +228,26 @@ namespace ConsoleGameEngine
             }
         }
 
-        public static void ResetConsoleColor()
+        public static void SetBackground(Color color)
         {
-            Console.ReplaceAllColorsWithDefaults();
-        }
-
-        public static void SetColors(Color foregroundColor, Color backgroundColor)
-        {
-            if (foregroundColor.ToArgb() == Color.Black.ToArgb())
-            {
-                System.Console.ForegroundColor = ConsoleColor.Black;
-            }
-            else if (foregroundColor.ToArgb() == Color.White.ToArgb())
-            {
-                System.Console.ForegroundColor = ConsoleColor.White;
-            }
-            else
-            {
-                Console.ForegroundColor = foregroundColor;
-            }
-
-            if (backgroundColor.ToArgb() == Color.Black.ToArgb())
+            if (color.ToArgb() == Color.Black.ToArgb())
             {
                 System.Console.BackgroundColor = ConsoleColor.Black;
             }
-            else if (backgroundColor.ToArgb() == Color.White.ToArgb())
+            else if (color.ToArgb() == Color.White.ToArgb())
             {
                 System.Console.BackgroundColor = ConsoleColor.White;
             }
             else
             {
-                Console.BackgroundColor = foregroundColor;
+                Console.BackgroundColor = color;
             }
         }
+
+        public static void ResetConsoleColor()
+        {
+            Console.ReplaceAllColorsWithDefaults();
+        }
+
     }
 }
