@@ -12,7 +12,7 @@ namespace ConsoleGameEngine
 {
     public static class Renderer
     {
-
+        // Image related rendering methods
         public static void PrintCanvas(Canvas canvas)
         {
             int[,] bitmap = canvas.GetBitmap();
@@ -22,28 +22,41 @@ namespace ConsoleGameEngine
             int row = Math.Max(canvas.GetPosition().y, 0);
             for (int y = topLimit; y < bitmap.GetLength(0); y += 2)
             {
-                Console.SetCursorPosition(Math.Max(0, canvas.GetPosition().x), row);
 
-                for (int x = leftLimit; x < bitmap.GetLength(1); x++)
+                if (canvas.GetPosition().x < Console.BufferWidth)
                 {
-                    int nextColorIndex = bitmap[x, y];
-                    SetForeground(nextColorIndex, colors);
+                    if (row < Console.WindowHeight)
+                    {
+                        Console.SetCursorPosition(Math.Max(0, canvas.GetPosition().x), row);
 
-                    if (y + 1 < bitmap.GetLength(0))
-                    {
-                        nextColorIndex = bitmap[x, y + 1];
-                        SetBackground(nextColorIndex, colors);
+                        for (int x = leftLimit; x < bitmap.GetLength(1); x++)
+                        {
+                            if (Console.CursorTop == row)
+                            {
+                                int nextColorIndex = bitmap[x, y];
+                                SetForeground(nextColorIndex, colors);
+
+                                if (y + 1 < bitmap.GetLength(0))
+                                {
+                                    nextColorIndex = bitmap[x, y + 1];
+                                    SetBackground(nextColorIndex, colors);
+                                }
+                                else
+                                {
+                                    System.Console.BackgroundColor = ConsoleColor.Black;
+                                }
+                                // A special character recognized by console that covers excactly the top half of the space
+                                // it's also very square.
+                                Console.Write("▀");
+                            }
+
+                        }
                     }
-                    else
-                    {
-                        System.Console.BackgroundColor = ConsoleColor.Black;
-                    }
-                    // A special character recognized by console that covers excactly the top half of the space
-                    // it's also very square.
-                    Console.Write("▀");
                 }
                 row++;
             }
+            System.Console.BackgroundColor = ConsoleColor.Black;
+            System.Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static void PrintImage(Image image, int x, int y)
@@ -87,6 +100,8 @@ namespace ConsoleGameEngine
 
                 row++;
             }
+            System.Console.BackgroundColor = ConsoleColor.Black;
+            System.Console.ForegroundColor = ConsoleColor.White;
         }
 
         private static int GetPixelCode(string nextPixel)
@@ -100,6 +115,37 @@ namespace ConsoleGameEngine
                 return 15;
             }
             return Convert.ToInt32(nextPixel, 16);
+        }
+
+
+        // Menu related endering methods
+        public static void PrintBorder(Border border)
+        {
+            System.Console.BackgroundColor = ConsoleColor.Black;
+            string ceilingAndFloor = "";
+            string middleSpace = "";
+            for (int i = 0; i < border.sizeX - 2; i++)
+            {
+                ceilingAndFloor += "═";
+                middleSpace += " ";
+            }
+            for (int y = 0; y < border.sizeY; y++)
+            {
+                Console.SetCursorPosition(border.positionX, border.positionY + y);
+                if (y == 0)
+                {
+                    Console.Write($"╔{ceilingAndFloor}╗");
+                }
+                else if (y == border.sizeY - 1)
+                {
+                    Console.Write($"╚{ceilingAndFloor}╝");
+
+                }
+                else
+                {
+                    Console.Write($"║{middleSpace}║");
+                }
+            }
         }
 
 

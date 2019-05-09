@@ -13,7 +13,7 @@ namespace Demo
         static void Main(string[] args)
         {
             Program p = new Program();
-            p.CanvasDemo();
+            p.BorderDemo();
         }
 
         public void ImageDemo()
@@ -43,7 +43,7 @@ namespace Demo
                 cHandler.MoveCanvas("BaseCanvas", canvasPosition);
                 cHandler.DrawToCanvas("BaseCanvas", "Pikachu", pikachuPosition);
                 cHandler.PrintCanvas("BaseCanvas");
-                var input = Console.ReadKey();
+                var input = Console.ReadKey(true);
                 switch (input.Key)
                 {
                     case ConsoleKey.Escape:
@@ -80,6 +80,12 @@ namespace Demo
                 }
 
             }
+        }
+
+        public void BorderDemo()
+        {
+            Border border = new Border(0, 0, 2, 2);
+            Renderer.PrintBorder(border);
         }
     }
 }

@@ -50,4 +50,25 @@ namespace ConsoleGameEngine
         }
 
     }
+
+    public struct Border
+    {
+        public int positionX, positionY, sizeX, sizeY;
+
+        public Border(IntXYPair position, IntXYPair size)
+        {
+            sizeX = size.x;
+            sizeY = size.y;
+            positionX = position.x;
+            positionY = position.y;
+        }
+
+        public Border(int positionX, int positionY, int sizeX, int sizeY)
+        {
+            this.positionX = positionX;
+            this.positionY = positionY;
+            this.sizeX = sizeX;
+            this.sizeY = sizeY;
+        }
+    }
 }
