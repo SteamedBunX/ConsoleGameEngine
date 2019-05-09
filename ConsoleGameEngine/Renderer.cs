@@ -121,8 +121,9 @@ namespace ConsoleGameEngine
 
         public static void PrintBorder(Border border)
         {
+            int bufferLimitY = Console.BufferHeight - 1;
             if (border.positionX < Console.BufferWidth && border.positionX + border.sizeX >= 0 &&
-                border.positionY < Console.BufferHeight && border.positionY + border.sizeY >= 0)
+                border.positionY < bufferLimitY && border.positionY + border.sizeY >= 0)
             {
                 string ceilingAndFloor = "";
                 string middleSpace = "";
@@ -154,11 +155,11 @@ namespace ConsoleGameEngine
                     middle = middle.Substring(0, Console.BufferWidth - border.positionX);
                 }
 
-
-
-                for (int y = topLimit; y < border.sizeY && y + border.positionY < Console.BufferHeight; y++)
+                for (int y = topLimit; y < border.sizeY && y + border.positionY < bufferLimitY; y++)
                 {
+
                     Console.SetCursorPosition(Math.Max(0, border.positionX), border.positionY + y);
+
                     if (y == 0)
                     {
                         Console.Write(ceiling);
@@ -166,13 +167,13 @@ namespace ConsoleGameEngine
                     else if (y == border.sizeY - 1)
                     {
                         Console.Write(floor);
-
                     }
                     else
                     {
                         Console.Write(middle);
                     }
                 }
+                Console.CursorVisible = false;
             }
         }
 
