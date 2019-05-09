@@ -85,7 +85,31 @@ namespace Demo
         public void BorderDemo()
         {
             Border border = new Border(-1, -2, 20, 10);
-            Renderer.PrintBorder(border);
+
+            bool exit = false;
+            while (!exit)
+            {
+                Renderer.PrintBorder(border);
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.Escape:
+                        exit = true;
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        border.Move(-1, 0);
+                        break;
+                    case ConsoleKey.UpArrow:
+                        border.Move(0, -1);
+                        break;
+                    case ConsoleKey.RightArrow:
+                        border.Move(1, 0);
+                        break;
+                    case ConsoleKey.DownArrow:
+                        border.Move(0, 1);
+                        break;
+                }
+                Console.Clear();
+            }
         }
     }
 }
