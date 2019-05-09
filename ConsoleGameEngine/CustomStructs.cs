@@ -70,5 +70,17 @@ namespace ConsoleGameEngine
             this.sizeX = sizeX;
             this.sizeY = sizeY;
         }
+
+        public void Move(int positionX, int positionY)
+        {
+            this.positionX += positionX;
+            this.positionY += positionY;
+        }
+
+        public void MoveTo(int positionX, int positionY)
+        {
+            this.positionX = positionX;
+            this.positionY = positionY;
+        }
     }
 }
