@@ -69,38 +69,36 @@ namespace ConsoleGameEngine
                 && position.y < Console.BufferHeight
                 && position.y + image.Bitmap.Count > 0)
             {
-                int leftLimit = Math.Max(0, 0 - position.x);
                 int topLimit = Math.Max(0, 0 - position.y);
                 int row = Math.Max(position.y, 0);
 
-                for (int i = topLimit; i < image.Bitmap.Count; i += 2)
+                for (int y = topLimit; y < image.Bitmap.Count; y += 2)
                 {
-                    Console.SetCursorPosition(position.x, row);
-                    char[] nextLine1 = image.Bitmap[i].ToCharArray();
+                    char[] nextLine1 = image.Bitmap[y].ToCharArray();
                     char[] nextLine2;
 
-                    if (i + 1 >= image.Bitmap.Count)
+                    if (y + 1 >= image.Bitmap.Count)
                     {
-                        nextLine2 = new string('Z', image.Bitmap[i].Count()).ToCharArray();
+                        nextLine2 = new string('Z', image.Bitmap[y].Count()).ToCharArray();
                     }
                     else
                     {
-                        nextLine2 = image.Bitmap[i + 1].ToCharArray();
+                        nextLine2 = image.Bitmap[y + 1].ToCharArray();
                     }
 
-                    for (int j = leftLimit; j < Math.Min(nextLine1.Length, Console.BufferWidth - position.y); j++)
+                    for (int x = 0; x < Math.Min(nextLine1.Length, Console.BufferWidth - position.y); x++)
                     {
-                        string nextPixel = nextLine1[j] + "";
+                        string nextPixel = nextLine1[x] + "";
                         int nextColorIndex;
                         nextColorIndex = GetPixelCode(nextPixel);
                         SetForeground(nextColorIndex, image.Colors);
 
-                        nextPixel = nextLine2[j] + "";
+                        nextPixel = nextLine2[x] + "";
                         nextColorIndex = GetPixelCode(nextPixel);
                         SetBackground(nextColorIndex, image.Colors);
                         // A special character recognized by console that covers excactly the top half of the space
                         // it's also very square.
-                        Console.Write("▀");
+                        PrintComponent("▀", x + position.x, row);
                     }
 
                     row++;

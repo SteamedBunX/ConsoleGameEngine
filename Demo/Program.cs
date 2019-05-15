@@ -13,7 +13,8 @@ namespace Demo
         static void Main(string[] args)
         {
             Program p = new Program();
-            p.CanvasDemo();
+            //p.CanvasDemo();
+            p.ImageDemo();
         }
 
         public void ImageDemo()
@@ -21,7 +22,34 @@ namespace Demo
             ComponentHandler cHandler = new ComponentHandler();
             string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
             cHandler.LoadImages(imageFolderPath);
-            cHandler.PrintImage("Pikachu", 0, 0);
+
+            IntXYPair pikachuPosition = new IntXYPair(5, 5);
+            bool exit = false;
+            Console.CursorVisible = false;
+            while (!exit)
+            {
+                Console.Clear();
+                cHandler.PrintImage("Pikachu", pikachuPosition);
+                var input = Console.ReadKey(true);
+                switch (input.Key)
+                {
+                    case ConsoleKey.Escape:
+                        exit = true;
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        pikachuPosition.x--;
+                        break;
+                    case ConsoleKey.UpArrow:
+                        pikachuPosition.y--;
+                        break;
+                    case ConsoleKey.RightArrow:
+                        pikachuPosition.x++;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        pikachuPosition.y++;
+                        break;
+                }
+            }
         }
 
         public void CanvasDemo()
@@ -42,6 +70,7 @@ namespace Demo
                 cHandler.ClearCanvas("BaseCanvas");
                 cHandler.MoveCanvas("BaseCanvas", canvasPosition);
                 cHandler.DrawToCanvas("BaseCanvas", "Pikachu", pikachuPosition);
+                Console.Clear();
                 cHandler.PrintCanvas("BaseCanvas");
                 var input = Console.ReadKey(true);
                 switch (input.Key)
