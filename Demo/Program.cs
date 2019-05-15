@@ -13,7 +13,7 @@ namespace Demo
         static void Main(string[] args)
         {
             Program p = new Program();
-            p.BorderDemo();
+            p.CanvasDemo();
         }
 
         public void ImageDemo()

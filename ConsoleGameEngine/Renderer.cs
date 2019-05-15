@@ -13,6 +13,7 @@ namespace ConsoleGameEngine
     public static class Renderer
     {
         // Image related rendering methods
+        #region ImageGraphic
         public static void PrintCanvas(Canvas canvas)
         {
             int[,] bitmap = canvas.GetBitmap();
@@ -122,11 +123,10 @@ namespace ConsoleGameEngine
             }
             return Convert.ToInt32(nextPixel, 16);
         }
-
+        #endregion
 
         // Menu related rendering methods
-
-
+        #region Menu
         public static void PrintBorder(Border border)
         {
             int bufferLimitY = Console.BufferHeight - 1;
@@ -185,9 +185,13 @@ namespace ConsoleGameEngine
             }
         }
 
+        #endregion
 
-        // since colors are represented by hex number inside the "bitmap"s , they need to be read accordingly
+        // Since colors are represented by hex number inside the "bitmap"s , they need to be read accordingly
         // with the actual list of color.
+        // black will be printed with consolecolor black instead of true black
+        // white will be printed with consolecolor write instead of true white
+        #region PublicMethods
         public static void SetForeground(int colorIndex, List<Color> colors)
         {
             if (colorIndex == 16)
@@ -256,6 +260,6 @@ namespace ConsoleGameEngine
         {
             Console.ReplaceAllColorsWithDefaults();
         }
-
+        #endregion
     }
 }
