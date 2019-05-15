@@ -46,9 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Canvas.cs" />
+    <Compile Include="Components\FreeString.cs" />
     <Compile Include="Components\Image.cs" />
     <Compile Include="Components\ComponentHandler.cs" />
     <Compile Include="CustomStructs.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />

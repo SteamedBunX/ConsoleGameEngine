@@ -182,6 +182,11 @@ namespace ConsoleGameEngine
             }
         }
 
+        public static void PrintBorder(Border border, Color color)
+        {
+            SetForeground(color);
+            PrintBorder(border);
+        }
         public static void PrintHollowBorder(Border border)
         {
 
