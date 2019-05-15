@@ -199,9 +199,33 @@ namespace ConsoleGameEngine
         #region PublicMethods
 
 
-        public static void PrintComponent()
+        public static void PrintComponent(string component, int x, int y)
         {
-
+            // It's intentional not to print anything at the last line of buffer
+            // if console prints anything at the last buffer and right hand corner
+            // it would automatically goes to next line and push the entire page up
+            if (y > 0 && y < Console.BufferHeight - 1 && x < Console.BufferWidth)
+            {
+                int stringLength = component.Length;
+                int xActual = Math.Max(0, x);
+                //truncate the string based on it's X position
+                if (x + component.Length > Console.BufferWidth)
+                {
+                    int alternativeSize = Console.BufferWidth - x;
+                    component = component.Substring(0, alternativeSize);
+                }
+                if (x < 0)
+                {
+                    int alternativeStart = 0 - x;
+                    component = component.Substring(alternativeStart);
+                }
+                Console.SetCursorPosition(xActual, y);
+                Console.Write(component);
+            }
+        }
+        public static void PrintComponent(string component, IntXYPair position)
+        {
+            PrintComponent(component, position.x, position.y);
         }
         public static void SetForeground(int colorIndex, List<Color> colors)
         {
