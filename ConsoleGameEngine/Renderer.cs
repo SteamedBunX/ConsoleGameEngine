@@ -127,21 +127,16 @@ namespace ConsoleGameEngine
         public static void PrintBorder(Border border)
         {
             int bufferLimitY = Console.BufferHeight - 1;
-            if (border.positionX < Console.BufferWidth && border.positionX + border.sizeX >= 0 &&
-                border.positionY < bufferLimitY && border.positionY + border.sizeY >= 0)
+            if (border.positionX < Console.BufferWidth &&
+                border.positionX + border.sizeX > 0 &&
+                border.positionY < bufferLimitY &&
+                border.positionY + border.sizeY > 0)
             {
-                string ceilingAndFloor = "";
-                string middleSpace = "";
-
-                int leftLimit = Math.Max(0, 0 - border.positionX);
                 int topLimit = Math.Max(0, 0 - border.positionY);
-                int row = Math.Max(border.positionY, 0);
 
-                for (int i = 0; i < border.sizeX - 2; i++)
-                {
-                    ceilingAndFloor += "═";
-                    middleSpace += " ";
-                }
+                string ceilingAndFloor = new string('═', border.sizeX - 2);
+                string middleSpace = new string(' ', border.sizeX - 2);
+
                 string ceiling = $"╔{ceilingAndFloor}╗";
                 string floor = $"╚{ceilingAndFloor}╝";
                 string middle = $"║{middleSpace}║";
@@ -189,7 +184,27 @@ namespace ConsoleGameEngine
         }
         public static void PrintHollowBorder(Border border)
         {
+            int bufferLimitY = Console.BufferHeight - 1;
+            if (border.positionX < Console.BufferWidth &&
+                border.positionX + border.sizeX > 0 &&
+                border.positionY < bufferLimitY &&
+                border.positionY + border.sizeY >= 0)
+            {
+                string ceilingAndFloor = new string('═', border.sizeX - 2);
+                int x2 = border.positionX + border.sizeX - 2;
 
+                string ceiling = $"╔{ceilingAndFloor}╗";
+                string floor = $"╚{ceilingAndFloor}╝";
+
+                PrintComponent(ceiling, border.positionX, border.positionY);
+                for (int yAlt = 0; yAlt < border.sizeY - 2; yAlt++)
+                {
+                    int row = border.positionY + 1 + yAlt;
+                    PrintComponent("║", border.positionX, row);
+                    PrintComponent("║", border.positionX + border.sizeX - 1, row);
+                }
+                PrintComponent(floor, border.positionX, border.positionY + border.sizeY - 1);
+            }
         }
 
         #endregion

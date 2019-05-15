@@ -14,7 +14,8 @@ namespace Demo
         {
             Program p = new Program();
             //p.CanvasDemo();
-            p.ImageDemo();
+            //p.ImageDemo();
+            p.BorderDemo();
         }
 
         public void ImageDemo()
@@ -111,18 +112,32 @@ namespace Demo
             }
         }
 
+        enum Mode { Filled, Hollow }
         public void BorderDemo()
         {
             Border border = new Border(-1, -2, 40, 20);
-
+            Mode mode = Mode.Filled;
             bool exit = false;
+
             while (!exit)
             {
-                Renderer.PrintBorder(border);
+                Console.WriteLine(new string('O', 3360));
+                Console.Write("Press C to change between hollow and filled BorderBox");
+                if (mode == Mode.Hollow)
+                {
+                    Renderer.PrintHollowBorder(border);
+                }
+                else
+                {
+                    Renderer.PrintBorder(border);
+                }
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.Escape:
                         exit = true;
+                        break;
+                    case ConsoleKey.C:
+                        mode = mode == Mode.Hollow ? Mode.Filled : Mode.Hollow;
                         break;
                     case ConsoleKey.LeftArrow:
                         border.Move(-1, 0);
