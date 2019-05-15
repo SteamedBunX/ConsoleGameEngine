@@ -182,6 +182,7 @@ namespace ConsoleGameEngine
             SetForeground(color);
             PrintBorder(border);
         }
+
         public static void PrintHollowBorder(Border border)
         {
             int bufferLimitY = Console.BufferHeight - 1;
@@ -207,6 +208,12 @@ namespace ConsoleGameEngine
             }
         }
 
+        public static void PrintHollowBorder(Border border, Color color)
+        {
+            SetForeground(color);
+            PrintHollowBorder(border);
+        }
+
         #endregion
 
         // Since colors are represented by hex number inside the "bitmap"s , they need to be read accordingly
@@ -216,7 +223,7 @@ namespace ConsoleGameEngine
         #region PublicMethods
 
 
-        public static void PrintComponent(string component, int x, int y)
+        static void PrintComponent(string component, int x, int y)
         {
             int stringLength = component.Length;
             // It's intentional not to print anything at the last line of buffer
@@ -244,7 +251,7 @@ namespace ConsoleGameEngine
             }
         }
 
-        public static void PrintComponent(string component, IntXYPair position)
+        static void PrintComponent(string component, IntXYPair position)
         {
             PrintComponent(component, position.x, position.y);
         }
