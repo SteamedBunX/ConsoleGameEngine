@@ -31,7 +31,7 @@ namespace ConsoleGameEngine
                 {
                     for (int x = 0; x < bitmap.GetLength(1); x++)
                     {
-                        int nextColorIndex = bitmap[x , y];
+                        int nextColorIndex = bitmap[x, y];
                         SetForeground(nextColorIndex, colors);
 
                         if (y + 1 < bitmap.GetLength(0))
@@ -64,8 +64,10 @@ namespace ConsoleGameEngine
         {
             // isolate the Y for incrementing as each line is printed
 
-            if (position.x < Console.BufferWidth && position.x + image.Bitmap[0].Length > 0
-                && position.y < Console.BufferHeight && position.GetY() + image.Bitmap.Count > 0)
+            if (position.x < Console.BufferWidth
+                && position.x + image.Bitmap[0].Length > 0
+                && position.y < Console.BufferHeight
+                && position.y + image.Bitmap.Count > 0)
             {
                 int leftLimit = Math.Max(0, 0 - position.x);
                 int topLimit = Math.Max(0, 0 - position.y);
@@ -202,9 +204,9 @@ namespace ConsoleGameEngine
             // It's intentional not to print anything at the last line of buffer
             // if console prints anything at the last buffer and right hand corner
             // it would automatically goes to next line and push the entire page up
-            if (y >= 0 
-                && y < Console.BufferHeight - 1 
-                && x < Console.BufferWidth 
+            if (y >= 0
+                && y < Console.BufferHeight - 1
+                && x < Console.BufferWidth
                 && x + stringLength > 0)
             {
                 int xActual = Math.Max(0, x);
