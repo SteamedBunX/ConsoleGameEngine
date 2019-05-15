@@ -185,6 +185,11 @@ namespace ConsoleGameEngine
             }
         }
 
+        public static void PrintHollowBorder(Border border)
+        {
+
+        }
+
         #endregion
 
         // Since colors are represented by hex number inside the "bitmap"s , they need to be read accordingly
