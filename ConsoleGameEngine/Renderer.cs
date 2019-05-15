@@ -16,46 +16,45 @@ namespace ConsoleGameEngine
         #region ImageGraphic
         public static void PrintCanvas(Canvas canvas)
         {
-            int[,] bitmap = canvas.GetBitmap();
-            List<Color> colors = canvas.GetColors();
-            int leftLimit = Math.Max(0, 0 - canvas.GetPosition().x);
-            int topLimit = Math.Max(0, 0 - canvas.GetPosition().y);
-            int row = Math.Max(canvas.GetPosition().y, 0);
-            if (canvas.GetPosition().x < Console.BufferWidth)
+            if (canvas.GetPosition().GetX() < Console.BufferWidth 
+                && canvas.GetPosition().GetX() + canvas.GetBitmap().GetLength(0) > 0
+                && canvas.GetPosition().GetY() < Console.BufferHeight 
+                && canvas.GetPosition().GetY() + canvas.GetBitmap().GetLength(1) > 0)
             {
+                int[,] bitmap = canvas.GetBitmap();
+                List<Color> colors = canvas.GetColors();
+
+                int topLimit = Math.Max(0, 0 - canvas.GetPosition().y);
+                int row = Math.Max(canvas.GetPosition().y, 0);
+
                 for (int y = topLimit; y < bitmap.GetLength(0); y += 2)
                 {
-                    if (row < Console.WindowHeight)
+                    for (int x = canvas.GetPosition().x; x < bitmap.GetLength(1); x++)
                     {
-                        Console.SetCursorPosition(Math.Max(0, canvas.GetPosition().x), row);
-
-                        for (int x = leftLimit; x < bitmap.GetLength(1); x++)
+                        if (Console.CursorTop == row)
                         {
-                            if (Console.CursorTop == row)
-                            {
-                                int nextColorIndex = bitmap[x, y];
-                                SetForeground(nextColorIndex, colors);
+                            int nextColorIndex = bitmap[x, y];
+                            SetForeground(nextColorIndex, colors);
 
-                                if (y + 1 < bitmap.GetLength(0))
-                                {
-                                    nextColorIndex = bitmap[x, y + 1];
-                                    SetBackground(nextColorIndex, colors);
-                                }
-                                else
-                                {
-                                    System.Console.BackgroundColor = ConsoleColor.Black;
-                                }
-                                // A special character recognized by console that covers excactly the top half of the space
-                                // it's also very square.
-                                Console.Write("▀");
+                            if (y + 1 < bitmap.GetLength(0))
+                            {
+                                nextColorIndex = bitmap[x, y + 1];
+                                SetBackground(nextColorIndex, colors);
                             }
+                            else
+                            {
+                                System.Console.BackgroundColor = ConsoleColor.Black;
+                            }
+                            // A special character recognized by console that covers excactly the top half of the space
+                            // it's also very square.
+                            PrintComponent("▀", x, y);
                         }
                     }
                     row++;
                 }
+                System.Console.BackgroundColor = ConsoleColor.Black;
+                System.Console.ForegroundColor = ConsoleColor.White;
             }
-            System.Console.BackgroundColor = ConsoleColor.Black;
-            System.Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static void PrintImage(Image image, int x, int y)
@@ -68,7 +67,7 @@ namespace ConsoleGameEngine
             // isolate the Y for incrementing as each line is printed
 
             if (position.x < Console.BufferWidth && position.x + image.Bitmap[0].Length > 0
-                && position.y < Console.BufferHeight && position.getY() + image.Bitmap.Count > 0)
+                && position.y < Console.BufferHeight && position.GetY() + image.Bitmap.Count > 0)
             {
                 int leftLimit = Math.Max(0, 0 - position.x);
                 int topLimit = Math.Max(0, 0 - position.y);
@@ -223,10 +222,12 @@ namespace ConsoleGameEngine
                 Console.Write(component);
             }
         }
+
         public static void PrintComponent(string component, IntXYPair position)
         {
             PrintComponent(component, position.x, position.y);
         }
+
         public static void SetForeground(int colorIndex, List<Color> colors)
         {
             if (colorIndex == 16)

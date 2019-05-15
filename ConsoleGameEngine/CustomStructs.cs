@@ -17,8 +17,8 @@ namespace ConsoleGameEngine
             this.y = y;
         }
 
-        public int getX() => x;
-        public int getY() => y;
+        public int GetX() => x;
+        public int GetY() => y;
 
         public static double operator -(IntXYPair p1, IntXYPair p2)
         {
