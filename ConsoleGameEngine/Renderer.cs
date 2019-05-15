@@ -197,6 +197,12 @@ namespace ConsoleGameEngine
         // black will be printed with consolecolor black instead of true black
         // white will be printed with consolecolor write instead of true white
         #region PublicMethods
+
+
+        public static void PrintComponent()
+        {
+
+        }
         public static void SetForeground(int colorIndex, List<Color> colors)
         {
             if (colorIndex == 16)
