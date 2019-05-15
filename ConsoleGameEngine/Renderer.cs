@@ -16,9 +16,9 @@ namespace ConsoleGameEngine
         #region ImageGraphic
         public static void PrintCanvas(Canvas canvas)
         {
-            if (canvas.GetPosition().GetX() < Console.BufferWidth 
+            if (canvas.GetPosition().GetX() < Console.BufferWidth
                 && canvas.GetPosition().GetX() + canvas.GetBitmap().GetLength(0) > 0
-                && canvas.GetPosition().GetY() < Console.BufferHeight 
+                && canvas.GetPosition().GetY() < Console.BufferHeight
                 && canvas.GetPosition().GetY() + canvas.GetBitmap().GetLength(1) > 0)
             {
                 int[,] bitmap = canvas.GetBitmap();
@@ -31,24 +31,22 @@ namespace ConsoleGameEngine
                 {
                     for (int x = canvas.GetPosition().x; x < bitmap.GetLength(1); x++)
                     {
-                        if (Console.CursorTop == row)
-                        {
-                            int nextColorIndex = bitmap[x, y];
-                            SetForeground(nextColorIndex, colors);
+                        int nextColorIndex = bitmap[x, y];
+                        SetForeground(nextColorIndex, colors);
 
-                            if (y + 1 < bitmap.GetLength(0))
-                            {
-                                nextColorIndex = bitmap[x, y + 1];
-                                SetBackground(nextColorIndex, colors);
-                            }
-                            else
-                            {
-                                System.Console.BackgroundColor = ConsoleColor.Black;
-                            }
-                            // A special character recognized by console that covers excactly the top half of the space
-                            // it's also very square.
-                            PrintComponent("▀", x, y);
+                        if (y + 1 < bitmap.GetLength(0))
+                        {
+                            nextColorIndex = bitmap[x, y + 1];
+                            SetBackground(nextColorIndex, colors);
                         }
+                        else
+                        {
+                            System.Console.BackgroundColor = ConsoleColor.Black;
+                        }
+                        // A special character recognized by console that covers excactly the top half of the space
+                        // it's also very square.
+                        PrintComponent("▀", x, row);
+
                     }
                     row++;
                 }
