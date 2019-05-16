@@ -22,16 +22,53 @@ namespace Demo
 
         public void FreeStringDemo()
         {
-            IntXYPair textPosition = new IntXYPair(10,10);
-            FreeString freeString = new FreeString("Hello World", textPosition, Color.Black, Color.Green);
+            IntXYPair textPosition = new IntXYPair(30, 10);
+            FreeString freeString = new FreeString("Hello World!", textPosition, Color.Black, Color.Green);
             Border border = new Border(freeString.GetPosition().GetX() - freeString.GetTextLength()
-                , freeString.GetPosition().GetY() - 1, freeString.GetTextLength() * 2, 3);
+                , freeString.GetPosition().GetY() - 1, freeString.GetTextLength() * 2 + 1, 3);
             bool exit = false;
             while (!exit)
             {
-                
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Clear();
+                Console.SetCursorPosition(0, 20);
+                Console.Write("Q | LeftAlign, W | CenterAlign, E | RightAlign");
                 border.Print();
                 freeString.Print();
+                var input = Console.ReadKey(true);
+                switch (input.Key)
+                {
+                    case ConsoleKey.Escape:
+                        exit = true;
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        freeString.Move(-1, 0);
+                        border.Move(-1, 0);
+                        break;
+                    case ConsoleKey.UpArrow:
+                        freeString.Move(0, -1);
+                        border.Move(0, -1);
+                        break;
+                    case ConsoleKey.RightArrow:
+                        freeString.Move(1, 0);
+                        border.Move(1, 0);
+                        break;
+                    case ConsoleKey.DownArrow:
+                        freeString.Move(0, 1);
+                        border.Move(0, 1);
+                        break;
+                    case ConsoleKey.Q:
+                        freeString.LeftAlign();
+                        break;
+                    case ConsoleKey.W:
+                        freeString.CenterAlign();
+                        break;
+                    case ConsoleKey.E:
+                        freeString.RightAlign();
+                        break;
+                }
+
             }
         }
 
@@ -142,7 +179,7 @@ namespace Demo
                 Console.Write("Press C to change between hollow and filled BorderBox");
                 if (mode == Mode.Hollow)
                 {
-                    border.PrintHollow() ;
+                    border.PrintHollow();
                 }
                 else
                 {
