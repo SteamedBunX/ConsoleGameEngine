@@ -20,6 +20,12 @@ namespace ConsoleGameEngine
         public int GetX() => x;
         public int GetY() => y;
 
+        public void Move(int xDelta = 0, int yDelta = 0)
+        {
+            x += xDelta;
+            y += yDelta;
+        }
+
         public static double operator -(IntXYPair p1, IntXYPair p2)
         {
             return Math.Sqrt(Math.Pow(p1.x - p2.x, 2) + Math.Pow(p1.y - p2.y, 2));

@@ -22,14 +22,16 @@ namespace Demo
 
         public void FreeStringDemo()
         {
-            FreeString freeString = new FreeString("Hello World", 10, 10, Color.Black, Color.Green);
+            IntXYPair textPosition = new IntXYPair(10,10);
+            FreeString freeString = new FreeString("Hello World", textPosition, Color.Black, Color.Green);
             Border border = new Border(freeString.GetPosition().GetX() - freeString.GetTextLength()
                 , freeString.GetPosition().GetY() - 1, freeString.GetTextLength() * 2, 3);
-            border.Print();
-            freeString.Print();
             bool exit = false;
             while (!exit)
             {
+                
+                border.Print();
+                freeString.Print();
             }
         }
 

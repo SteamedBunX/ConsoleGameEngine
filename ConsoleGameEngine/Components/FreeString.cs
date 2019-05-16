@@ -21,6 +21,9 @@ namespace ConsoleGameEngine.Components
             position = new IntXYPair(x, y);
         }
 
+        public FreeString(string text, IntXYPair position)
+            : this(text, position.GetX(), position.GetY()) { }
+
         public FreeString(string text, int x, int y, Color foregroundColor, Color backgroundColor)
             : this(text, x, y)
         {
@@ -28,9 +31,27 @@ namespace ConsoleGameEngine.Components
             this.SetBackgroundColor(backgroundColor);
         }
 
+        public FreeString(string text, IntXYPair position, Color foregroundColor, Color backgroundColor)
+            : this(text, position.GetX(), position.GetY(), foregroundColor, backgroundColor) { }
+
         public void Print()
         {
             Renderer.PrintFreeString(this);
+        }
+
+        public void SetPosition(int x, int y)
+        {
+            position = new IntXYPair(x, y);
+        }
+
+        public void SetPosition(IntXYPair newPosition)
+        {
+            position = newPosition;
+        }
+
+        public void Move(int xDelta = 0, int yDelta = 0)
+        {
+            position.Move(xDelta, yDelta);
         }
         public void LeftAlign()
         {
