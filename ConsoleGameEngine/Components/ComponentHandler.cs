@@ -10,7 +10,60 @@ namespace ConsoleGameEngine.Components
     {
         Dictionary<string, Image> images = new Dictionary<string, Image>();
         Dictionary<string, Canvas> canvases = new Dictionary<string, Canvas>();
+        Dictionary<string, Border> borders = new Dictionary<string, Border>();
 
+
+        #region Border
+        public void AddBorder(string name, Border border)
+        {
+            borders.Add(name, border);
+        }
+
+        public void RemoveBorder(string name)
+        {
+            borders.Remove(name);
+        }
+
+        public void RemoveAllBorders()
+        {
+            borders.Clear();
+        }
+
+        public void PrintBorder(string name)
+        {
+            if (borders.ContainsKey(name))
+            {
+                Renderer.PrintBorder(borders[name]);
+            }
+        }
+
+        public void PrintAllBorders()
+        {
+            foreach (KeyValuePair<string, Border> border in borders)
+            {
+                Renderer.PrintBorder(border.Value);
+            }
+        }
+
+        public void PrintHollowBorder(string name)
+        {
+            if (borders.ContainsKey(name))
+            {
+                Renderer.PrintHollowBorder(borders[name]);
+            }
+        }
+
+        public void PrintAllHollowBorder()
+        {
+            foreach (KeyValuePair<string, Border> border in borders)
+            {
+                Renderer.PrintHollowBorder(border.Value);
+            }
+        }
+
+        #endregion
+
+        #region Canvas
         public void AddCanvas(string name, IntXYPair size, IntXYPair position)
         {
             canvases[name] = new Canvas(size, position);
@@ -55,6 +108,17 @@ namespace ConsoleGameEngine.Components
             }
         }
 
+        public void PrintAllCanvas()
+        {
+            foreach (KeyValuePair<string, Canvas> c in canvases)
+            {
+                c.Value.Print();
+            }
+        }
+
+        #endregion
+
+        #region Image
         public void LoadImages(string folderPath)
         {
             var imageList = Loader.LoadImages(folderPath);
@@ -87,7 +151,7 @@ namespace ConsoleGameEngine.Components
         {
             PrintImage(name, new IntXYPair(x, y));
         }
-
+        #endregion
 
     }
 }

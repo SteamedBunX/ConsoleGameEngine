@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace ConsoleGameEngine
 {
-    enum Alignment { Left, Right, Center }
+    public enum Alignment { Left, Right, Center }
 }

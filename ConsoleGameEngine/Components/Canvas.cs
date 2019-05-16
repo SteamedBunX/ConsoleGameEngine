@@ -121,6 +121,8 @@ namespace ConsoleGameEngine.Components
             return bitmap;
         }
 
+        public void Print() => Renderer.PrintCanvas(this);
+
     }
 
     public static class ExtentionMethod

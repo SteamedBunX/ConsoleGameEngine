@@ -16,10 +16,7 @@ namespace ConsoleGameEngine
         #region ImageGraphic
         public static void PrintCanvas(Canvas canvas)
         {
-            if (canvas.GetPosition().GetX() < Console.BufferWidth
-                && canvas.GetPosition().GetX() + canvas.GetBitmap().GetLength(0) > 0
-                && canvas.GetPosition().GetY() < Console.BufferHeight
-                && canvas.GetPosition().GetY() + canvas.GetBitmap().GetLength(1) > 0)
+            if (IsInScope(canvas.GetPosition(), canvas.GetBitmap().GetLength(0), canvas.GetBitmap().GetLength(1)))
             {
                 int[,] bitmap = canvas.GetBitmap();
                 List<Color> colors = canvas.GetColors();
@@ -63,11 +60,7 @@ namespace ConsoleGameEngine
         public static void PrintImage(Image image, IntXYPair position)
         {
             // isolate the Y for incrementing as each line is printed
-
-            if (position.x < Console.BufferWidth
-                && position.x + image.Bitmap[0].Length > 0
-                && position.y < Console.BufferHeight
-                && position.y + image.Bitmap.Count > 0)
+            if (IsInScope(position, image.Bitmap[0].Length, image.Bitmap.Count))
             {
                 int topLimit = Math.Max(0, 0 - position.y);
                 int row = Math.Max(position.y, 0);
@@ -122,15 +115,40 @@ namespace ConsoleGameEngine
         }
         #endregion
 
+        // Basic Texts
+
+        #region FreeString
+        public static void PrintFreeString(FreeString freeString)
+        {
+            SetForeground(freeString.GetForegroundColor());
+            SetBackground(freeString.GetBackgroundColor());
+
+        }
+
+        public static IntXYPair GetPositionActual(FreeString freeString)
+        {
+            switch (freeString.GetAlignment())
+            {
+                case Alignment.Right:
+                    return new IntXYPair(freeString.GetPosition().GetX() - freeString.GetTextLength(),
+                        freeString.GetPosition().GetY());
+                case Alignment.Center:
+                    return new IntXYPair(freeString.GetPosition().GetX() - freeString.GetTextLength() / 2,
+                        freeString.GetPosition().GetY());
+                default:
+                    return freeString.GetPosition();
+            }
+        }
+
+        #endregion
+
         // Menu related rendering methods
-        #region Menu
+
+        #region Border
         public static void PrintBorder(Border border)
         {
             int bufferLimitY = Console.BufferHeight - 1;
-            if (border.positionX < Console.BufferWidth &&
-                border.positionX + border.sizeX > 0 &&
-                border.positionY < bufferLimitY &&
-                border.positionY + border.sizeY > 0)
+            if (IsInScope(border.positionX, border.positionY, border.sizeX, border.sizeY))
             {
                 int topLimit = Math.Max(0, 0 - border.positionY);
 
@@ -213,15 +231,19 @@ namespace ConsoleGameEngine
             SetForeground(color);
             PrintHollowBorder(border);
         }
+        #endregion
+
+        #region Menu
 
         #endregion
+
+        // Rendering Special "Number" Components
 
         // Since colors are represented by hex number inside the "bitmap"s , they need to be read accordingly
         // with the actual list of color.
         // black will be printed with consolecolor black instead of true black
         // white will be printed with consolecolor write instead of true white
-        #region PublicMethods
-
+        #region BasicMethods
 
         static void PrintComponent(string component, int x, int y)
         {
@@ -254,6 +276,37 @@ namespace ConsoleGameEngine
         static void PrintComponent(string component, IntXYPair position)
         {
             PrintComponent(component, position.x, position.y);
+        }
+
+        static bool IsInScope(IntXYPair position, IntXYPair size)
+        {
+            return IsInScope(position.GetX(), position.GetY(), size.GetX(), size.GetY());
+        }
+
+        static bool IsInScope(int positionX, int positionY, IntXYPair size)
+        {
+            return IsInScope(positionX, positionY, size.GetX(), size.GetY());
+        }
+
+        static bool IsInScope(IntXYPair position, int sizeX, int sizeY)
+        {
+            return IsInScope(position.GetX(), position.GetY(), sizeX, sizeY);
+        }
+
+        static bool IsInScope(int positionX, int positionY, int sizeX, int sizeY)
+        {
+            int bufferLimitLeft = 0;
+            int bufferLimitRight = Console.BufferWidth;
+            int bufferLimitFloor = Console.BufferHeight - 1;
+            int bufferLimitCieling = 0;
+            if (positionX < bufferLimitLeft
+                && positionX + sizeX > bufferLimitRight
+                && positionY < bufferLimitFloor
+                && positionY + sizeY > bufferLimitCieling)
+            {
+                return true;
+            }
+            return false;
         }
 
         public static void SetForeground(int colorIndex, List<Color> colors)
