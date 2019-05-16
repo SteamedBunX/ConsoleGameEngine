@@ -53,6 +53,21 @@ namespace ConsoleGameEngine.Components
             this.backgroundColor = backgroundColor;
         }
 
+        public IntXYPair GetPositionActual()
+        {
+            switch (alignment)
+            {
+                case Alignment.Right:
+                    return new IntXYPair(position.GetX() - GetTextLength() + 1,
+                        position.GetY());
+                case Alignment.Center:
+                    return new IntXYPair(position.GetX() - (GetTextLength() - 1) / 2,
+                        position.GetY());
+                default:
+                    return position;
+            }
+        }
+
         public string GetText() => text;
         public Color GetForegroundColor() => foregroundColor;
         public Color GetBackgroundColor() => backgroundColor;

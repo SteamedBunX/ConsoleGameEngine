@@ -122,22 +122,7 @@ namespace ConsoleGameEngine
         {
             SetForeground(freeString.GetForegroundColor());
             SetBackground(freeString.GetBackgroundColor());
-
-        }
-
-        public static IntXYPair GetPositionActual(FreeString freeString)
-        {
-            switch (freeString.GetAlignment())
-            {
-                case Alignment.Right:
-                    return new IntXYPair(freeString.GetPosition().GetX() - freeString.GetTextLength(),
-                        freeString.GetPosition().GetY());
-                case Alignment.Center:
-                    return new IntXYPair(freeString.GetPosition().GetX() - freeString.GetTextLength() / 2,
-                        freeString.GetPosition().GetY());
-                default:
-                    return freeString.GetPosition();
-            }
+            PrintComponent(freeString.GetText(), freeString.GetPositionActual());
         }
 
         #endregion
