@@ -28,6 +28,10 @@ namespace ConsoleGameEngine.Components
             this.SetBackgroundColor(backgroundColor);
         }
 
+        public void Print()
+        {
+            Renderer.PrintFreeString(this);
+        }
         public void LeftAlign()
         {
             alignment = Alignment.Left;

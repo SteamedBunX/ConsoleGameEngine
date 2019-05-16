@@ -188,11 +188,7 @@ namespace ConsoleGameEngine
 
         public static void PrintHollowBorder(Border border)
         {
-            int bufferLimitY = Console.BufferHeight - 1;
-            if (border.positionX < Console.BufferWidth &&
-                border.positionX + border.sizeX > 0 &&
-                border.positionY < bufferLimitY &&
-                border.positionY + border.sizeY >= 0)
+            if (IsInScope(border.positionX, border.positionY, border.sizeX, border.sizeY))
             {
                 string ceilingAndFloor = new string('═', border.sizeX - 2);
                 int x2 = border.positionX + border.sizeX - 2;
@@ -284,8 +280,8 @@ namespace ConsoleGameEngine
             int bufferLimitRight = Console.BufferWidth;
             int bufferLimitFloor = Console.BufferHeight - 1;
             int bufferLimitCieling = 0;
-            if (positionX < bufferLimitLeft
-                && positionX + sizeX > bufferLimitRight
+            if (positionX < bufferLimitRight
+                && positionX + sizeX > bufferLimitLeft
                 && positionY < bufferLimitFloor
                 && positionY + sizeY > bufferLimitCieling)
             {

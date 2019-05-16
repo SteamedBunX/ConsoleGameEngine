@@ -82,5 +82,15 @@ namespace ConsoleGameEngine
             this.positionX = positionX;
             this.positionY = positionY;
         }
+
+        public void Print()
+        {
+            Renderer.PrintBorder(this);
+        }
+
+        public void PrintHollow()
+        {
+            Renderer.PrintHollowBorder(this);
+        }
     }
 }

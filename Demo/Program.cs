@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ConsoleGameEngine.Components;
 using ConsoleGameEngine;
+using System.Drawing;
 
 namespace Demo
 {
@@ -15,7 +16,21 @@ namespace Demo
             Program p = new Program();
             //p.CanvasDemo();
             //p.ImageDemo();
-            p.BorderDemo();
+            //p.BorderDemo();
+            p.FreeStringDemo();
+        }
+
+        public void FreeStringDemo()
+        {
+            FreeString freeString = new FreeString("Hello World", 10, 10, Color.Black, Color.Green);
+            Border border = new Border(freeString.GetPosition().GetX() - freeString.GetTextLength()
+                , freeString.GetPosition().GetY() - 1, freeString.GetTextLength() * 2, 3);
+            border.Print();
+            freeString.Print();
+            bool exit = false;
+            while (!exit)
+            {
+            }
         }
 
         public void ImageDemo()
@@ -125,11 +140,11 @@ namespace Demo
                 Console.Write("Press C to change between hollow and filled BorderBox");
                 if (mode == Mode.Hollow)
                 {
-                    Renderer.PrintHollowBorder(border);
+                    border.PrintHollow() ;
                 }
                 else
                 {
-                    Renderer.PrintBorder(border);
+                    border.Print();
                 }
                 switch (Console.ReadKey().Key)
                 {
