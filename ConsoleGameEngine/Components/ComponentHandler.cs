@@ -11,12 +11,84 @@ namespace ConsoleGameEngine.Components
         Dictionary<string, Image> images = new Dictionary<string, Image>();
         Dictionary<string, Canvas> canvases = new Dictionary<string, Canvas>();
         Dictionary<string, Border> borders = new Dictionary<string, Border>();
+        Dictionary<string, FreeString> freeStrings = new Dictionary<string, FreeString>();
 
+        #region FreeString
+        public void SetFreeString(string name, FreeString freeString, Alignment alignment = Alignment.Left)
+        {
+            freeStrings[name] = freeString;
+        }
+
+        public void ChangeFreeStringAlignment(string name, Alignment alignment)
+        {
+            if(freeStrings.ContainsKey(name))
+            {
+                switch (alignment)
+                {
+                    case Alignment.Left:
+                        freeStrings[name].LeftAlign();
+                        break;
+                    case Alignment.Right:
+                        freeStrings[name].RightAlign();
+                        break;
+                    case Alignment.Center:
+                        freeStrings[name].CenterAlign();
+                        break;
+                }
+                
+            }
+        }
+
+        public void RemoveFreeString(string name)
+        {
+            if (freeStrings.ContainsKey(name))
+            {
+                freeStrings.Remove(name);
+            }
+        }
+
+        public void RemoveAllFreeStrings()
+        {
+            freeStrings.Clear();
+        }
+
+        public void PrintFreeString(string name)
+        {
+            if (freeStrings.ContainsKey(name))
+            {
+                freeStrings[name].Print();
+            }
+        }
+
+        public void PrintAllFreeStrings()
+        {
+            foreach (KeyValuePair<string, FreeString> item in freeStrings)
+            {
+                item.Value.Print();
+            }
+        }
+        #endregion
 
         #region Border
-        public void AddBorder(string name, Border border)
+        public void SetBorder(string name, Border border)
         {
-            borders.Add(name, border);
+            borders[name] = border;
+        }
+
+        public void MoveBorder(string name, int xDelta = 0, int yDelta = 0)
+        {
+            if (borders.ContainsKey(name))
+            {
+                borders[name].Move(xDelta,yDelta);
+            }
+        }
+
+        public void TeleportBorder(string name, int x, int y)
+        {
+            if (borders.ContainsKey(name))
+            {
+                borders[name].MoveTo(x, y);
+            }
         }
 
         public void RemoveBorder(string name)
@@ -64,19 +136,30 @@ namespace ConsoleGameEngine.Components
         #endregion
 
         #region Canvas
-        public void AddCanvas(string name, IntXYPair size, IntXYPair position)
+        public void SetCanvas(string name, IntXYPair size, IntXYPair position)
         {
             canvases[name] = new Canvas(size, position);
         }
 
+        public void SetCanvas(string name, Canvas canvas)
+        {
+            canvases[name] = canvas;
+        }
+
         public void MoveCanvas(string name, IntXYPair position)
         {
-            canvases[name].Move(position);
+            if (canvases.ContainsKey(name))
+            {
+                canvases[name].Move(position);
+            }
         }
 
         public void DrawToCanvas(string canvasName, string imageName, IntXYPair position)
         {
-            canvases[canvasName].DrawImage(images[imageName], position);
+            if (canvases.ContainsKey(canvasName) && images.ContainsKey(imageName))
+            {
+                canvases[canvasName].DrawImage(images[imageName], position);
+            }
         }
 
         public void ClearCanvas(string name)
@@ -104,7 +187,7 @@ namespace ConsoleGameEngine.Components
         {
             if (canvases.ContainsKey(name))
             {
-                Renderer.PrintCanvas(canvases[name]);
+                canvases[name].Print();
             }
         }
 

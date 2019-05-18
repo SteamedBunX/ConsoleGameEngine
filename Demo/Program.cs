@@ -32,7 +32,7 @@ namespace Demo
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Clear();
-                Console.SetCursorPosition(0, 20);
+                Console.SetCursorPosition(10, 20);
                 Console.Write("Q | LeftAlign, W | CenterAlign, E | RightAlign");
                 border.Print();
                 freeString.Print();
@@ -116,7 +116,7 @@ namespace Demo
 
             IntXYPair canvasPosition = new IntXYPair(5, 5);
             IntXYPair pikachuPosition = new IntXYPair(5, 5);
-            cHandler.AddCanvas("BaseCanvas", new IntXYPair(20, 20), canvasPosition);
+            cHandler.SetCanvas("BaseCanvas", new IntXYPair(20, 20), canvasPosition);
 
             Console.CursorVisible = false;
 
