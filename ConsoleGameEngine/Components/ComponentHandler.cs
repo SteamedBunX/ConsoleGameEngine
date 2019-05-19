@@ -35,7 +35,6 @@ namespace ConsoleGameEngine.Components
                         freeStrings[name].CenterAlign();
                         break;
                 }
-                
             }
         }
 

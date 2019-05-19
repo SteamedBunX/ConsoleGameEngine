@@ -15,6 +15,7 @@ namespace ConsoleGameEngine.Components
         Color foregroundColor = Color.White,
             backgroundColor = Color.Black;
 
+        #region Constructors
         public FreeString(string text, int x, int y)
         {
             this.text = text;
@@ -31,9 +32,15 @@ namespace ConsoleGameEngine.Components
             this.SetBackgroundColor(backgroundColor);
         }
 
+        public FreeString(string text, int x, int y, Color foregroundColor, Color backgroundColor, Alignment alignment)
+            : this(text, x, y, foregroundColor, backgroundColor)
+        {
+            this.alignment = alignment;
+        }
         public FreeString(string text, IntXYPair position, Color foregroundColor, Color backgroundColor)
             : this(text, position.GetX(), position.GetY(), foregroundColor, backgroundColor) { }
 
+        #endregion
         public void Print()
         {
             Renderer.PrintFreeString(this);

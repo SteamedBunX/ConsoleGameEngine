@@ -125,6 +125,32 @@ namespace ConsoleGameEngine
             PrintComponent(freeString.GetText(), freeString.GetPositionActual());
         }
 
+        public static void PrintFreeStringBundle(FreeStringBundle bundle)
+        {
+            int columnPoint;
+            switch (bundle.GetAlignment())
+            {
+                case Alignment.Left:
+                    columnPoint = bundle.GetStartColumn();
+                    break;
+                case Alignment.Right:
+                    columnPoint = bundle.GetEndColumn();
+                    break;
+                default:
+                    columnPoint = (bundle.GetEndColumn() - bundle.GetStartColumn()) / 2 + bundle.GetStartColumn();
+                    break;
+            }
+            int currentRow = bundle.GetStartRow();
+            foreach (string s in bundle.GetContents())
+            {
+                FreeString current = new FreeString(s, columnPoint, currentRow, 
+                    bundle.GetTextColor(), bundle.GetBackgroundColor(),
+                    bundle.GetAlignment());
+                PrintFreeString(current);
+                currentRow++;
+            }
+
+        }
         #endregion
 
         // Menu related rendering methods
