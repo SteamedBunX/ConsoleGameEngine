@@ -102,9 +102,9 @@ namespace ConsoleGameEngine.Components
         }
 
         #region Gets
-        public int GetStartColumn() => positionX;
+        public int GetPositionX() => positionX;
         public int GetMaxTextLength() => maxTextLength;
-        public int GetStartRow() => positionY;
+        public int GetPositionY() => positionY;
         public List<string> GetContents() => content;
         public Color GetTextColor() => tColor;
         public Color GetBackgroundColor() => bColor;

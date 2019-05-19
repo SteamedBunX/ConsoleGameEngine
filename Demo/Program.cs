@@ -75,9 +75,9 @@ namespace Demo
 
         public void FreeStringBundleDemo()
         {
-            FreeStringBundle fsBundle = new FreeStringBundle(5, 30, 50, Color.Black, Color.Green, Alignment.Center);
-            Border border = new Border(fsBundle.GetStartColumn() - 1
-                , fsBundle.GetStartRow() - 1, fsBundle.GetMaxTextLength() + 2, 12);
+            FreeStringBundle fsBundle = new FreeStringBundle(30, 5, 50, Color.Black, Color.Green, Alignment.Center);
+            Border border = new Border(fsBundle.GetPositionX() - 1
+                , fsBundle.GetPositionY() - 1, fsBundle.GetMaxTextLength() + 2, 10);
             fsBundle.Add("FirstLine");
             fsBundle.Add("This Line exceed the 20 character limit and will be warped to next line.");
             fsBundle.Add("Third Imput but in fourth line");

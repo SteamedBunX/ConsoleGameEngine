@@ -131,16 +131,16 @@ namespace ConsoleGameEngine
             switch (bundle.GetAlignment())
             {
                 case Alignment.Left:
-                    columnPoint = bundle.GetStartColumn();
+                    columnPoint = bundle.GetPositionX();
                     break;
                 case Alignment.Right:
-                    columnPoint = bundle.GetStartColumn() + bundle.GetMaxTextLength() - 1;
+                    columnPoint = bundle.GetPositionX() + bundle.GetMaxTextLength() - 1;
                     break;
                 default:
-                    columnPoint = (bundle.GetMaxTextLength()) / 2 + bundle.GetStartColumn() - 1;
+                    columnPoint = (bundle.GetMaxTextLength()) / 2 + bundle.GetPositionX() - 1;
                     break;
             }
-            int currentRow = bundle.GetStartRow();
+            int currentRow = bundle.GetPositionY();
             foreach (string s in bundle.GetContents())
             {
                 FreeString current = new FreeString(s, columnPoint, currentRow,
