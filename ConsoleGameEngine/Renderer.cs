@@ -134,16 +134,16 @@ namespace ConsoleGameEngine
                     columnPoint = bundle.GetStartColumn();
                     break;
                 case Alignment.Right:
-                    columnPoint = bundle.GetEndColumn();
+                    columnPoint = bundle.GetStartColumn() + bundle.GetMaxTextLength() - 1;
                     break;
                 default:
-                    columnPoint = (bundle.GetEndColumn() - bundle.GetStartColumn()) / 2 + bundle.GetStartColumn();
+                    columnPoint = (bundle.GetMaxTextLength()) / 2 + bundle.GetStartColumn() - 1;
                     break;
             }
             int currentRow = bundle.GetStartRow();
             foreach (string s in bundle.GetContents())
             {
-                FreeString current = new FreeString(s, columnPoint, currentRow, 
+                FreeString current = new FreeString(s, columnPoint, currentRow,
                     bundle.GetTextColor(), bundle.GetBackgroundColor(),
                     bundle.GetAlignment());
                 PrintFreeString(current);

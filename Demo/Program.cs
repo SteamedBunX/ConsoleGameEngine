@@ -17,7 +17,8 @@ namespace Demo
             //p.CanvasDemo();
             //p.ImageDemo();
             //p.BorderDemo();
-            p.FreeStringDemo();
+            //p.FreeStringDemo();
+            p.FreeStringBundleDemo();
         }
 
         public void FreeStringDemo()
@@ -66,6 +67,64 @@ namespace Demo
                         break;
                     case ConsoleKey.E:
                         freeString.RightAlign();
+                        break;
+                }
+
+            }
+        }
+
+        public void FreeStringBundleDemo()
+        {
+            FreeStringBundle fsBundle = new FreeStringBundle(5, 30, 50, Color.Black, Color.Green, Alignment.Center);
+            Border border = new Border(fsBundle.GetStartColumn() - 1
+                , fsBundle.GetStartRow() - 1, fsBundle.GetMaxTextLength() + 2, 12);
+            fsBundle.Add("FirstLine");
+            fsBundle.Add("This Line exceed the 20 character limit and will be warped to next line.");
+            fsBundle.Add("Third Imput but in fourth line");
+            fsBundle.Add("This Line Has Exactly 50 characters.##############");
+            fsBundle.Add("This Line Has Exactly 49 characters.#############");
+            fsBundle.Add("This Line Has Exactly 51 characters.###############");
+
+            bool exit = false;
+            while (!exit)
+            {
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Clear();
+                Console.SetCursorPosition(10, 20);
+                Console.Write("Q | LeftAlign, W | CenterAlign, E | RightAlign");
+                border.Print();
+                fsBundle.Print();
+                var input = Console.ReadKey(true);
+                switch (input.Key)
+                {
+                    case ConsoleKey.Escape:
+                        exit = true;
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        fsBundle.Move(-1, 0);
+                        border.Move(-1, 0);
+                        break;
+                    case ConsoleKey.UpArrow:
+                        fsBundle.Move(0, -1);
+                        border.Move(0, -1);
+                        break;
+                    case ConsoleKey.RightArrow:
+                        fsBundle.Move(1, 0);
+                        border.Move(1, 0);
+                        break;
+                    case ConsoleKey.DownArrow:
+                        fsBundle.Move(0, 1);
+                        border.Move(0, 1);
+                        break;
+                    case ConsoleKey.Q:
+                        fsBundle.LeftAlign();
+                        break;
+                    case ConsoleKey.W:
+                        fsBundle.CenterAlign();
+                        break;
+                    case ConsoleKey.E:
+                        fsBundle.RightAlign();
                         break;
                 }
 

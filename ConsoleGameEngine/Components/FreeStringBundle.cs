@@ -9,38 +9,37 @@ namespace ConsoleGameEngine.Components
 {
     public class FreeStringBundle
     {
-        public int startRow, startColumn, endColumn;
-        public int maxTextSize;
+        public int positionY, positionX;
+        public int maxTextLength;
         public Color tColor = Color.White, bColor = Color.Black;
         Alignment alignment = Alignment.Left;
         public List<string> content = new List<string>();
 
         #region Constructor
-        public FreeStringBundle(int row, int leftLimit, int rightLimit)
+        public FreeStringBundle(int positionX,int positionY,  int maxTextLength)
         {
-            startRow = row;
-            startColumn = leftLimit;
-            endColumn = rightLimit;
-            maxTextSize = endColumn - startColumn;
+            this.positionY = positionY;
+            this.positionX = positionX;
+            this.maxTextLength = maxTextLength;
         }
 
-        public FreeStringBundle(int row, int leftLimit, int rightLimit,
+        public FreeStringBundle(int positionX, int positionY, int maxTextLength,
                           Color tColorDefault, Color bColorDefault)
-                          : this(row, leftLimit, rightLimit)
+                          : this(positionX, positionY, maxTextLength)
         {
             this.tColor = tColorDefault;
             this.bColor = bColorDefault;
         }
 
-        public FreeStringBundle(int row, int leftLimit, int rightLimit, Alignment alignmentDefault)
-            : this(row, leftLimit, rightLimit)
+        public FreeStringBundle(int positionX, int positionY, int MaxTextLength, Alignment alignmentDefault)
+            : this(positionX, positionY, MaxTextLength)
         {
             this.alignment = alignmentDefault;
         }
 
-        public FreeStringBundle(int row, int leftLimit, int rightLimit,
+        public FreeStringBundle(int positionX, int positionY, int maxTextLength,
                            Color tColorDefault, Color bColorDefault, Alignment alignmentDefault)
-                           : this(row, leftLimit, rightLimit, tColorDefault, bColorDefault)
+                           : this(positionX, positionY, maxTextLength, tColorDefault, bColorDefault)
         {
             this.alignment = alignmentDefault;
         }
@@ -49,9 +48,8 @@ namespace ConsoleGameEngine.Components
         #region ChangeSetting
         public void Move(int xDelta, int yDelta)
         {
-            startRow += yDelta;
-            startColumn += xDelta;
-            endColumn += xDelta;
+            positionY += yDelta;
+            positionX += xDelta;
         }
 
         public void ChangeDefaultTextColor(Color tColorDefault)
@@ -63,22 +61,33 @@ namespace ConsoleGameEngine.Components
         {
             this.bColor = bColorDefault;
         }
+
+        public void LeftAlign()
+        {
+            alignment = Alignment.Left;
+        }
+
+        public void CenterAlign()
+        {
+            alignment = Alignment.Center;
+        }
+
+        public void RightAlign()
+        {
+            alignment = Alignment.Right;
+        }
+
         #endregion
         public void Add(string text)
         {
-            if (text.Length <= maxTextSize)
+            if (text.Length <= maxTextLength)
             {
                 content.Add(text);
             }
             else
             {
-                List<string> truncated = new List<string>();
-                for (int i = 0; i < (text.Length - 1) / maxTextSize; i++)
-                {
-                    content.Add(text.Substring(0, maxTextSize));
-                    text = text.Substring(10);
-                }
-                content.Add(text);
+                content.Add(text.Substring(0, maxTextLength));
+                this.Add(text.Substring(maxTextLength));
             }
         }
 
@@ -93,9 +102,9 @@ namespace ConsoleGameEngine.Components
         }
 
         #region Gets
-        public int GetStartColumn() => startColumn;
-        public int GetEndColumn() => endColumn;
-        public int GetStartRow() => startRow;
+        public int GetStartColumn() => positionX;
+        public int GetMaxTextLength() => maxTextLength;
+        public int GetStartRow() => positionY;
         public List<string> GetContents() => content;
         public Color GetTextColor() => tColor;
         public Color GetBackgroundColor() => bColor;
