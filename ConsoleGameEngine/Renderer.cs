@@ -125,6 +125,11 @@ namespace ConsoleGameEngine
             PrintComponent(freeString.GetText(), freeString.GetPositionActual());
         }
 
+        public static void PrintMenu<T>(Menu<T> menu)
+        {
+            
+        }
+
         public static void PrintFreeStringBundle(FreeStringBundle bundle)
         {
             int columnPoint;
