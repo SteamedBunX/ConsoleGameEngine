@@ -36,17 +36,18 @@ namespace Demo
             menu.AddItem("4. Different Color", 3, Color.Red, Color.Blue);
             menu.AddItem("5", 4);
             menu.AddItem("Exit", 5);
-            menu.LoadSelectedAction("1", PrintOnePikachu);
-            menu.LoadSelectedAction(1, PrintTwoPikachu);
+            menu.LoadInToFocusAction("1", PrintOnePikachu);
+            menu.LoadInToFocusAction(1, PrintTwoPikachu);
             FreeString guide = new FreeString("Q | LeftAlign, W | CenterAlign, E | RightAlign", 5, 20);
             bool exit = false;
             while (!exit)
             {
-                Console.Clear();
                 guide.Print();
                 menu.Print();
                 Renderer.SetBackground(Color.Black);
-                switch (Console.ReadKey().Key)
+                ConsoleKey swicher = Console.ReadKey().Key;
+                Console.Clear();
+                switch (swicher)
                 {
                     case ConsoleKey.Enter:
                         if (menu.GetReturn() == 5)
