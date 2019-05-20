@@ -17,7 +17,7 @@ namespace ConsoleGameEngine.Components
 
         int currentSelection = 0;
 
-        public Menu(int positionX, int positionY, int sizeX, 
+        public Menu(int positionX, int positionY, int sizeX,
             Alignment alignment = Alignment.Center)
         {
             this.positionX = positionX;
@@ -26,10 +26,10 @@ namespace ConsoleGameEngine.Components
             this.alignment = alignment;
         }
 
-        public Menu(int positionX, int positionY, int sizeX, 
-            Color color1Default, Color color2Default, 
+        public Menu(int positionX, int positionY, int sizeX,
+            Color color1Default, Color color2Default,
             Alignment alignment = Alignment.Center)
-            : this(positionX, positionY, sizeX,  alignment)
+            : this(positionX, positionY, sizeX, alignment)
         {
             this.color1Default = color1Default;
             this.color2Default = color2Default;
@@ -57,15 +57,19 @@ namespace ConsoleGameEngine.Components
 
         public void AddItem(string text, T returnValue)
         {
-            if(text.Length > sizeX)
+            if (text.Length > sizeX)
             {
-                text.Substring(0, sizeX);
+                text =text.Substring(0, sizeX);
             }
             menuItems.Add(new MenuItem<T>(text, returnValue, color1Default, color2Default));
         }
 
         public void AddItem(string text, T returnValue, Color color1, Color color2)
         {
+            if (text.Length > sizeX)
+            {
+                text = text.Substring(0, sizeX);
+            }
             menuItems.Add(new MenuItem<T>(text, returnValue, color1, color2));
         }
 
@@ -94,5 +98,18 @@ namespace ConsoleGameEngine.Components
             menuItems[currentSelection].Selected();
             return menuItems[currentSelection].GetReturn();
         }
+
+        public void Print()
+        {
+            Renderer.PrintMenu(this);
+        }
+
+        public int GetPositionX() => positionX;
+        public int GetPositionY() => positionY;
+        public int GetSizeX() => sizeX;
+        public List<MenuItem<T>> GetMenuItems() => menuItems;
+        public int GetCurrentSelection() => currentSelection;
+        public T GetReturn() => menuItems[currentSelection].GetReturn();
+
     }
 }

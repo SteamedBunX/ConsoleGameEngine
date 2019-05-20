@@ -125,11 +125,6 @@ namespace ConsoleGameEngine
             PrintComponent(freeString.GetText(), freeString.GetPositionActual());
         }
 
-        public static void PrintMenu<T>(Menu<T> menu)
-        {
-            
-        }
-
         public static void PrintFreeStringBundle(FreeStringBundle bundle)
         {
             int columnPoint;
@@ -246,6 +241,38 @@ namespace ConsoleGameEngine
         #endregion
 
         #region Menu
+        public static void PrintMenu<T>(Menu<T> menu)
+        {
+            int currentRow = menu.GetPositionY();
+            int positionX = menu.GetPositionX();
+            switch (menu.alignment)
+            {
+                case Alignment.Left:
+                    break;
+                case Alignment.Right:
+                    positionX = positionX + menu.GetSizeX() - 1;
+                    break;
+                default:
+                    positionX = positionX + (menu.GetSizeX() / 2 - 1);
+                    break;
+            }
+            List<MenuItem<T>> menuitems = menu.GetMenuItems();
+            for (int i = 0; i < menuitems.Count; i++)
+            {
+                if (i == menu.GetCurrentSelection())
+                {
+                    PrintFreeString(new FreeString(menuitems[i].GetText(), positionX, currentRow,
+                        menuitems[i].GetColor2(), menuitems[i].GetColor1(), menu.alignment));
+                }
+                else
+                {
+                    PrintFreeString(new FreeString(menuitems[i].GetText(), positionX, currentRow,
+                       menuitems[i].GetColor1(), menuitems[i].GetColor2(), menu.alignment));
+                }
+                currentRow++;
+            }
+            Console.CursorVisible = false;
+        }
 
         #endregion
 

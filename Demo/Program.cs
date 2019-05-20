@@ -18,7 +18,52 @@ namespace Demo
             //p.ImageDemo();
             //p.BorderDemo();
             //p.FreeStringDemo();
-            p.FreeStringBundleDemo();
+            //p.FreeStringBundleDemo();
+            p.MenuDemo();
+        }
+
+        public void MenuDemo()
+        {
+            Menu<int> menu = new Menu<int>(30, 10, 20, Color.Green, Color.Black);
+            menu.AddItem("1", 0);
+            menu.AddItem("2", 1);
+            menu.AddItem("3rd one is longer the the max length", 2);
+            menu.AddItem("4. Different Color", 3, Color.Red, Color.Blue);
+            menu.AddItem("5", 4);
+            menu.AddItem("Exit", 5);
+            FreeString guide = new FreeString("Q | LeftAlign, W | CenterAlign, E | RightAlign", 5, 20);
+            bool exit = false;
+            while (!exit)
+            {
+                Console.Clear();
+                guide.Print();
+                menu.Print();
+                Renderer.SetBackground(Color.Black);
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.Enter:
+                        if (menu.GetReturn() == 5)
+                        {
+                            exit = true;
+                        }
+                        break;
+                    case ConsoleKey.UpArrow:
+                        menu.Up();
+                        break;
+                    case ConsoleKey.DownArrow:
+                        menu.Down();
+                        break;
+                    case ConsoleKey.Q:
+                        menu.alignment = Alignment.Left;
+                        break;
+                    case ConsoleKey.W:
+                        menu.alignment = Alignment.Center;
+                        break;
+                    case ConsoleKey.E:
+                        menu.alignment = Alignment.Right;
+                        break;
+                }
+            }
         }
 
         public void FreeStringDemo()

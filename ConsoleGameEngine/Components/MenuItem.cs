@@ -27,6 +27,21 @@ namespace ConsoleGameEngine.Components
             this.color2 = color2;
         }
 
+        public Color GetColor1()
+        {
+            return color1;
+        }
+
+        public Color GetColor2()
+        {
+            return color2;
+        }
+
+        public string GetText()
+        {
+            return text;
+        }
+
         public T GetReturn()
         {
             return returnValue;
