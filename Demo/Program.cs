@@ -45,9 +45,9 @@ namespace Demo
                 guide.Print();
                 menu.Print();
                 Renderer.SetBackground(Color.Black);
-                ConsoleKey swicher = Console.ReadKey().Key;
+                ConsoleKey switcher = Console.ReadKey().Key;
                 Console.Clear();
-                switch (swicher)
+                switch (switcher)
                 {
                     case ConsoleKey.Enter:
                         if (menu.GetReturn() == 5)
