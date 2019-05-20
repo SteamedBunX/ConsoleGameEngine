@@ -11,8 +11,9 @@ namespace ConsoleGameEngine.Components
     {
         T returnValue;
         string text;
-        bool isInFocus = false;
         Color color1 = Color.White, color2 = Color.Black;
+        Action inToFocusAct, outOfFocusAct, selectedAct;
+       
 
         public MenuItem(string text, T returnValue)
         {
@@ -21,10 +22,25 @@ namespace ConsoleGameEngine.Components
         }
 
         public MenuItem(string text, T returnValue, Color color1, Color color2)
-            :this(text,returnValue)
+            : this(text, returnValue)
         {
             this.color1 = color1;
             this.color2 = color2;
+        }
+
+        public void LoadInToFocusAction(Action inToFocusAct)
+        {
+            this.inToFocusAct = inToFocusAct;
+        }
+
+        public void LoadOutOfFocusAction(Action outOfFocusAct)
+        {
+            this.outOfFocusAct = outOfFocusAct;
+        }
+
+        public void LoadSelectedAction(Action selectedAct)
+        {
+            this.selectedAct = selectedAct;
         }
 
         public Color GetColor1()
@@ -49,17 +65,26 @@ namespace ConsoleGameEngine.Components
 
         public void InToFocus()
         {
-
+            if (inToFocusAct != null)
+            {
+                inToFocusAct();
+            }
         }
 
         public void OutOfFocus()
         {
-
+            if (outOfFocusAct != null)
+            {
+                outOfFocusAct();
+            }
         }
 
         public void Selected()
         {
-
+            if (selectedAct != null)
+            {
+                selectedAct();
+            }
         }
     }
 }

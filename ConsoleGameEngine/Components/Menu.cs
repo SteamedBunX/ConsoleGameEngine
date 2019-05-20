@@ -55,11 +55,60 @@ namespace ConsoleGameEngine.Components
             }
         }
 
+        public void LoadInToFocusAction(string text, Action inToFocusAct)
+        {
+            if (menuItems.Any(x => x.GetText() == text))
+            {
+                menuItems.First(x => x.GetText() == text).LoadInToFocusAction(inToFocusAct);
+            }
+        }
+
+        public void LoadInToFocusAction(int itemIndex, Action inToFocusAct)
+        {
+            if (itemIndex < menuItems.Count && itemIndex >= 0)
+            {
+                menuItems[itemIndex].LoadInToFocusAction(inToFocusAct);
+            }
+        }
+
+        public void LoadOutOfFocusAction(string text, Action outOfFocusAct)
+        {
+            if (menuItems.Any(x => x.GetText() == text))
+            {
+                menuItems.First(x => x.GetText() == text).LoadOutOfFocusAction(outOfFocusAct);
+            }
+        }
+
+        public void LoadOutOfFocusAction(int itemIndex, Action outOfFocusAct)
+        {
+            if (itemIndex < menuItems.Count && itemIndex >= 0)
+            {
+                menuItems[itemIndex].LoadOutOfFocusAction(outOfFocusAct);
+            }
+        }
+
+        public void LoadSelectedAction(string text, Action selectedAct)
+        {
+            if (menuItems.Any(x => x.GetText() == text))
+            {
+                menuItems.First(x => x.GetText() == text).LoadSelectedAction(selectedAct);
+            }
+        }
+
+        public void LoadSelectedAction(int itemIndex, Action selectedAct)
+        {
+            if (itemIndex < menuItems.Count && itemIndex >= 0)
+            {
+                menuItems[itemIndex].LoadSelectedAction(selectedAct);
+            }
+        }
+
+
         public void AddItem(string text, T returnValue)
         {
             if (text.Length > sizeX)
             {
-                text =text.Substring(0, sizeX);
+                text = text.Substring(0, sizeX);
             }
             menuItems.Add(new MenuItem<T>(text, returnValue, color1Default, color2Default));
         }

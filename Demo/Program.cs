@@ -24,13 +24,20 @@ namespace Demo
 
         public void MenuDemo()
         {
+            ComponentHandler cHandler = new ComponentHandler();
+            string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
+            cHandler.LoadImages(imageFolderPath);
+
             Menu<int> menu = new Menu<int>(30, 10, 20, Color.Green, Color.Black);
+
             menu.AddItem("1", 0);
             menu.AddItem("2", 1);
             menu.AddItem("3rd one is longer the the max length", 2);
             menu.AddItem("4. Different Color", 3, Color.Red, Color.Blue);
             menu.AddItem("5", 4);
             menu.AddItem("Exit", 5);
+            menu.LoadSelectedAction("1", PrintOnePikachu);
+            menu.LoadSelectedAction(1, PrintTwoPikachu);
             FreeString guide = new FreeString("Q | LeftAlign, W | CenterAlign, E | RightAlign", 5, 20);
             bool exit = false;
             while (!exit)
@@ -63,6 +70,17 @@ namespace Demo
                         menu.alignment = Alignment.Right;
                         break;
                 }
+            }
+
+            void PrintOnePikachu()
+            {
+                cHandler.PrintImage("Pikachu", 5, 5);
+            }
+
+            void PrintTwoPikachu()
+            {
+                cHandler.PrintImage("Pikachu", 5, 5);
+                cHandler.PrintImage("Pikachu", 50, 5);
             }
         }
 
