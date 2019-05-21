@@ -9,14 +9,14 @@ namespace ConsoleGameEngine.Components
 {
     public class FreeStringBundle
     {
-        public int positionY, positionX;
-        public int maxTextLength;
-        public Color tColor = Color.White, bColor = Color.Black;
+        int positionY, positionX;
+        int maxTextLength;
+        Color tColor = Color.White, bColor = Color.Black;
         Alignment alignment = Alignment.Left;
-        public List<string> content = new List<string>();
+        List<string> content = new List<string>();
 
         #region Constructor
-        public FreeStringBundle(int positionX,int positionY,  int maxTextLength)
+        public FreeStringBundle(int positionX, int positionY, int maxTextLength)
         {
             this.positionY = positionY;
             this.positionX = positionX;

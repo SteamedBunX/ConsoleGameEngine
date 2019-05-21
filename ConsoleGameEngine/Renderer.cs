@@ -245,7 +245,7 @@ namespace ConsoleGameEngine
         {
             int currentRow = menu.GetPositionY();
             int positionX = menu.GetPositionX();
-            switch (menu.alignment)
+            switch (menu.GetAlignment())
             {
                 case Alignment.Left:
                     break;
@@ -262,12 +262,12 @@ namespace ConsoleGameEngine
                 if (i == menu.GetCurrentSelection())
                 {
                     PrintFreeString(new FreeString(menuitems[i].GetText(), positionX, currentRow,
-                        menuitems[i].GetColor2(), menuitems[i].GetColor1(), menu.alignment));
+                        menuitems[i].GetColor2(), menuitems[i].GetColor1(), menu.GetAlignment()));
                 }
                 else
                 {
                     PrintFreeString(new FreeString(menuitems[i].GetText(), positionX, currentRow,
-                       menuitems[i].GetColor1(), menuitems[i].GetColor2(), menu.alignment));
+                       menuitems[i].GetColor1(), menuitems[i].GetColor2(), menu.GetAlignment()));
                 }
                 currentRow++;
             }
@@ -277,6 +277,10 @@ namespace ConsoleGameEngine
         #endregion
 
         // Rendering Special "Number" Components
+
+        #region Numbers
+
+        #endregion
 
         // Since colors are represented by hex number inside the "bitmap"s , they need to be read accordingly
         // with the actual list of color.
