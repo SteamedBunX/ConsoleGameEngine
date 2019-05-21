@@ -11,13 +11,13 @@ namespace Demo
 {
     class Demo
     {
-        ComponentHandler cHandler;
-
         static void Main(string[] args)
         {
             Demo p = new Demo();
             p.DemoMainPage();
         }
+
+        ComponentHandler cHandler;
 
         public Demo()
         {
@@ -37,12 +37,13 @@ namespace Demo
             Menu<int> mainMenu = new Menu<int>(46, 19, 28);
             mainMenu.AddItem("FreeString", 0);
             mainMenu.AddItem("FreeStringBundle", 1);
-            mainMenu.AddItem("Image", 2);
-            mainMenu.AddItem("Canvas", 3);
-            mainMenu.AddItem("Menu", 4);
-            mainMenu.AddItem("ScrollableMenu", 5);
-            mainMenu.AddItem("Numbers", 6);
-            mainMenu.AddItem("Exit", 7);
+            mainMenu.AddItem("Border", 2);
+            mainMenu.AddItem("Image", 3);
+            mainMenu.AddItem("Canvas", 4);
+            mainMenu.AddItem("Menu", 5);
+            mainMenu.AddItem("ScrollableMenu", 6);
+            mainMenu.AddItem("Numbers", 7);
+            mainMenu.AddItem("Exit", 8);
 
             bool exit = false;
             bool needRefresh = true;
@@ -53,7 +54,7 @@ namespace Demo
                     cHandler.Reset();
                     cHandler.SetCanvas("Logo", new Canvas(90, 35, 15, 0));
                     cHandler.DrawToCanvas("Logo", "ConsoleGameEngineDemo_Logo", new IntXYPair(0, 0));
-                    cHandler.SetBorder("HomeMenuBorder", new Border(45, 18, 30, 10));
+                    cHandler.SetBorder("HomeMenuBorder", new Border(45, 19, 30, 10));
 
                     Console.Clear();
                     cHandler.PrintAllCanvas();
@@ -85,22 +86,26 @@ namespace Demo
                                 needRefresh = true;
                                 break;
                             case 2:
-                                ImageDemo();
+                                BorderDemo();
                                 needRefresh = true;
                                 break;
                             case 3:
-                                CanvasDemo();
+                                ImageDemo();
                                 needRefresh = true;
                                 break;
                             case 4:
-                                MenuDemo();
+                                CanvasDemo();
                                 needRefresh = true;
                                 break;
                             case 5:
+                                MenuDemo();
+                                needRefresh = true;
                                 break;
                             case 6:
                                 break;
                             case 7:
+                                break;
+                            case 8:
                                 exit = true;
                                 break;
                         }
