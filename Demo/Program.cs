@@ -212,21 +212,21 @@ namespace Demo
                     case ConsoleKey.Escape:
                         exit = true;
                         break;
-                    case ConsoleKey.LeftArrow:
-                        cHandler.MoveFreeString("Hello", -1, 0);
-                        cHandler.MoveBorder("DialogBorder", -1, 0);
-                        break;
                     case ConsoleKey.UpArrow:
                         cHandler.MoveFreeString("Hello", 0, -1);
                         cHandler.MoveBorder("DialogBorder", 0, -1);
                         break;
-                    case ConsoleKey.RightArrow:
-                        cHandler.MoveFreeString("Hello", 1, 0);
-                        cHandler.MoveBorder("DialogBorder", 1, 0);
-                        break;
                     case ConsoleKey.DownArrow:
                         cHandler.MoveFreeString("Hello", 0, 1);
                         cHandler.MoveBorder("DialogBorder", 0, 1);
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        cHandler.MoveFreeString("Hello", -1, 0);
+                        cHandler.MoveBorder("DialogBorder", -1, 0);
+                        break;
+                    case ConsoleKey.RightArrow:
+                        cHandler.MoveFreeString("Hello", 1, 0);
+                        cHandler.MoveBorder("DialogBorder", 1, 0);
                         break;
                     case ConsoleKey.Q:
                         cHandler.ChangeFreeStringAlignment("Hello", Alignment.Left);

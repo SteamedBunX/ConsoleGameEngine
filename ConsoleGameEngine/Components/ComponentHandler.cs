@@ -154,11 +154,12 @@ namespace ConsoleGameEngine.Components
             borders[name] = border;
         }
 
-        public void MoveBorder(string name, int xDelta = 0, int yDelta = 0)
+        public void MoveBorder(string name, int xDelta, int yDelta)
         {
             if (borders.ContainsKey(name))
             {
                 borders[name].Move(xDelta, yDelta);
+
             }
         }
 

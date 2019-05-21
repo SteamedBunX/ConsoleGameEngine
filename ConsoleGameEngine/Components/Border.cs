@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleGameEngine
 {
-    public struct Border
+    public class Border
     {
         public int positionX, positionY, sizeX, sizeY;
 
@@ -30,10 +30,10 @@ namespace ConsoleGameEngine
         #endregion
 
         #region Manipulation
-        public void Move(int positionX, int positionY)
+        public void Move(int xDelta, int yDelta)
         {
-            this.positionX += positionX;
-            this.positionY += positionY;
+            this.positionX += xDelta;
+            this.positionY += yDelta;
         }
 
         public void MoveTo(int positionX, int positionY)
@@ -42,6 +42,13 @@ namespace ConsoleGameEngine
             this.positionY = positionY;
         }
 
+        #endregion
+
+        #region Gets
+        public int GetPositionX() => positionX;
+        public int GetPositionY() => positionY;
+        public int GetSizeX() => sizeX;
+        public int GetSizeY() => sizeY;
         #endregion
 
         public void Print()
@@ -53,5 +60,6 @@ namespace ConsoleGameEngine
         {
             Renderer.PrintHollowBorder(this);
         }
+
     }
 }
