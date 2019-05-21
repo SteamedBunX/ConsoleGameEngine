@@ -19,12 +19,18 @@ namespace Demo
             //p.BorderDemo();
             //p.FreeStringDemo();
             //p.FreeStringBundleDemo();
-            p.MenuDemo();
+            //p.MenuDemo();
+            p.DemoMainPage();
         }
 
         public void DemoMainPage()
         {
-
+            ComponentHandler cHandler = new ComponentHandler();
+            string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
+            cHandler.LoadImages(imageFolderPath);
+            cHandler.SetCanvas("Logo", new Canvas(90, 35, 5, 5));
+            cHandler.DrawToCanvas("Logo", "ConsoleGameEngineDemo_Logo", new IntXYPair(0, 0));
+            cHandler.PrintAllCanvas();
         }
 
         public void MenuDemo()

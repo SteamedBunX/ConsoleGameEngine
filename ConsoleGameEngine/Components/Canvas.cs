@@ -60,6 +60,8 @@ namespace ConsoleGameEngine.Components
                 [15] = 15,
                 [16] = 16
             };
+
+            //get the correct number for each color in the image
             int initialIndex = colors.Count();
             for (int i = 0; i < image.Colors.Count; i++)
             {
@@ -74,13 +76,13 @@ namespace ConsoleGameEngine.Components
                 }
             }
 
-
-            int rightLimit = Math.Min(bitmap.GetLength(1), position.x + image.Bitmap[0].Length) - position.x;
-            int bottemLimit = Math.Min(bitmap.GetLength(0), position.y + image.Bitmap.Count) - position.y;
-            int topLimit = Math.Max(0, 0 - position.y);
+            //calculating where to start and where to end
+            int rowStart = Math.Max(0, 0 - position.y);
+            int rowEnd = Math.Min(bitmap.GetLength(1), position.y + image.Bitmap.Count) - position.y;
             int leftLimit = Math.Max(0, 0 - position.x);
+            int rightLimit = Math.Min(bitmap.GetLength(0), position.x + image.Bitmap[0].Length) - position.x;
 
-            for (int y = topLimit; y < bottemLimit; y++)
+            for (int y = rowStart; y < rowEnd; y++)
             {
                 for (int x = leftLimit; x < rightLimit; x++)
                 {

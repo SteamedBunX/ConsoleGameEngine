@@ -24,14 +24,14 @@ namespace ConsoleGameEngine
                 int topLimit = Math.Max(0, 0 - canvas.GetPosition().y);
                 int row = Math.Max(canvas.GetPosition().y, 0);
 
-                for (int y = topLimit; y < bitmap.GetLength(0); y += 2)
+                for (int y = topLimit; y < bitmap.GetLength(1); y += 2)
                 {
-                    for (int x = 0; x < bitmap.GetLength(1); x++)
+                    for (int x = 0; x < bitmap.GetLength(0); x++)
                     {
                         int nextColorIndex = bitmap[x, y];
                         SetForeground(nextColorIndex, colors);
 
-                        if (y + 1 < bitmap.GetLength(0))
+                        if (y + 1 < bitmap.GetLength(1))
                         {
                             nextColorIndex = bitmap[x, y + 1];
                             SetBackground(nextColorIndex, colors);
