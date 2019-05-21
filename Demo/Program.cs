@@ -16,12 +16,6 @@ namespace Demo
         static void Main(string[] args)
         {
             Demo p = new Demo();
-            //p.CanvasDemo();
-            //p.ImageDemo();
-            //p.BorderDemo();
-            //p.FreeStringDemo();
-            //p.FreeStringBundleDemo();
-            //p.MenuDemo();
             p.DemoMainPage();
         }
 

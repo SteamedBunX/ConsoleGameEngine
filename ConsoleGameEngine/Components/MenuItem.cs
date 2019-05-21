@@ -13,8 +13,9 @@ namespace ConsoleGameEngine.Components
         string text;
         Color color1 = Color.White, color2 = Color.Black;
         Action inToFocusAct, outOfFocusAct, selectedAct;
-       
 
+
+        #region Constructor
         public MenuItem(string text, T returnValue)
         {
             this.returnValue = returnValue;
@@ -27,7 +28,9 @@ namespace ConsoleGameEngine.Components
             this.color1 = color1;
             this.color2 = color2;
         }
+        #endregion
 
+        #region Manipulation
         public void LoadInToFocusAction(Action inToFocusAct)
         {
             this.inToFocusAct = inToFocusAct;
@@ -42,6 +45,9 @@ namespace ConsoleGameEngine.Components
         {
             this.selectedAct = selectedAct;
         }
+        #endregion
+
+        #region Gets
 
         public Color GetColor1()
         {
@@ -63,6 +69,9 @@ namespace ConsoleGameEngine.Components
             return returnValue;
         }
 
+        #endregion
+
+        #region Reactions
         public void InToFocus()
         {
             if (inToFocusAct != null)
@@ -86,5 +95,6 @@ namespace ConsoleGameEngine.Components
                 selectedAct();
             }
         }
+        #endregion
     }
 }

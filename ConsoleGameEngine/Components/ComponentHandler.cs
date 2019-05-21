@@ -147,7 +147,6 @@ namespace ConsoleGameEngine.Components
         }
         #endregion
 
-
         #region Border
         public void SetBorder(string name, Border border)
         {
