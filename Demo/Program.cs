@@ -54,7 +54,7 @@ namespace Demo
                     cHandler.Reset();
                     cHandler.SetCanvas("Logo", new Canvas(90, 35, 15, 0));
                     cHandler.DrawToCanvas("Logo", "ConsoleGameEngineDemo_Logo", new IntXYPair(0, 0));
-                    cHandler.SetBorder("HomeMenuBorder", new Border(45, 19, 30, 10));
+                    cHandler.SetBorder("HomeMenuBorder", new Border(45, 18, 30, 11));
 
                     Console.Clear();
                     cHandler.PrintAllCanvas();
@@ -388,7 +388,8 @@ namespace Demo
         public void BorderDemo()
         {
             cHandler.Reset();
-            Border border = new Border(-1, -2, 40, 20);
+            Console.Clear();
+            Border border = new Border(30, 5, 40, 20);
             Mode mode = Mode.Filled;
             bool exit = false;
 
