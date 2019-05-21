@@ -50,6 +50,7 @@ namespace ConsoleGameEngine
                 System.Console.BackgroundColor = ConsoleColor.Black;
                 System.Console.ForegroundColor = ConsoleColor.White;
             }
+            CleanUp();
         }
 
         public static void PrintImage(Image image, int x, int y)
@@ -99,6 +100,7 @@ namespace ConsoleGameEngine
                 System.Console.BackgroundColor = ConsoleColor.Black;
                 System.Console.ForegroundColor = ConsoleColor.White;
             }
+            CleanUp();
         }
 
         private static int GetPixelCode(string nextPixel)
@@ -202,8 +204,8 @@ namespace ConsoleGameEngine
                         Console.Write(middle);
                     }
                 }
-                Console.CursorVisible = false;
             }
+            CleanUp();
         }
 
         public static void PrintBorder(Border border, Color color)
@@ -231,6 +233,7 @@ namespace ConsoleGameEngine
                 }
                 PrintComponent(floor, border.positionX, border.positionY + border.sizeY - 1);
             }
+            CleanUp();
         }
 
         public static void PrintHollowBorder(Border border, Color color)
@@ -271,7 +274,7 @@ namespace ConsoleGameEngine
                 }
                 currentRow++;
             }
-            Console.CursorVisible = false;
+            CleanUp();
         }
 
         #endregion
@@ -419,6 +422,12 @@ namespace ConsoleGameEngine
         public static void ResetConsoleColor()
         {
             Console.ReplaceAllColorsWithDefaults();
+        }
+
+        public static void CleanUp()
+        {
+            Console.CursorVisible = false;
+            SetBackground(Color.Black);
         }
         #endregion
     }

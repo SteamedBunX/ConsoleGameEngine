@@ -25,16 +25,83 @@ namespace Demo
 
         public void DemoMainPage()
         {
+            //setup
             ComponentHandler cHandler = new ComponentHandler();
             string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
             cHandler.LoadImages(imageFolderPath);
-            cHandler.SetCanvas("Logo", new Canvas(90, 35, 5, 5));
+            cHandler.SetCanvas("Logo", new Canvas(90, 35, 15, 0));
             cHandler.DrawToCanvas("Logo", "ConsoleGameEngineDemo_Logo", new IntXYPair(0, 0));
-            cHandler.PrintAllCanvas();
+            cHandler.SetBorder("HomeMenuBorder", new Border(45, 18, 30, 10));
+            Menu<int> mainMenu = new Menu<int>(46, 19, 28);
+            mainMenu.AddItem("FreeString", 0);
+            mainMenu.AddItem("FreeStringBundle", 1);
+            mainMenu.AddItem("Image", 2);
+            mainMenu.AddItem("Canvas", 3);
+            mainMenu.AddItem("Menu", 4);
+            mainMenu.AddItem("ScrollableMenu", 5);
+            mainMenu.AddItem("Numbers", 6);
+            mainMenu.AddItem("Exit", 7);
+
+            bool exit = false;
+            bool needRefresh = true;
+            while (!exit)
+            {
+                if (needRefresh)
+                {
+                    Console.Clear();
+                    cHandler.PrintAllCanvas();
+                    cHandler.PrintAllBorders();
+                    needRefresh = false;
+                }
+                mainMenu.Print();
+                var input = Console.ReadKey(true);
+                switch (input.Key)
+                {
+                    case ConsoleKey.Escape:
+                        exit = true;
+                        break;
+                    case ConsoleKey.UpArrow:
+                        mainMenu.Up();
+                        break;
+                    case ConsoleKey.DownArrow:
+                        mainMenu.Down();
+                        break;
+                    case ConsoleKey.Enter:
+                        switch (mainMenu.GetReturn())
+                        {
+                            case 0:
+                                FreeStringDemo();
+                                break;
+                            case 1:
+                                FreeStringBundleDemo();
+                                break;
+                            case 2:
+                                ImageDemo();
+                                break;
+                            case 3:
+                                CanvasDemo();
+                                break;
+                            case 4:
+                                MenuDemo();
+                                break;
+                            case 5:
+                                break;
+                            case 6:
+                                break;
+                            case 7:
+                                exit = true;
+                                break;
+                        }
+                        needRefresh = true;
+                        break;
+                }
+            }
+            mainMenu.Print();
         }
 
         public void MenuDemo()
         {
+            Console.Clear();
             ComponentHandler cHandler = new ComponentHandler();
             string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
             cHandler.LoadImages(imageFolderPath);
@@ -214,7 +281,6 @@ namespace Demo
 
             IntXYPair pikachuPosition = new IntXYPair(5, 5);
             bool exit = false;
-            Console.CursorVisible = false;
             while (!exit)
             {
                 Console.Clear();
@@ -252,7 +318,6 @@ namespace Demo
             IntXYPair pikachuPosition = new IntXYPair(5, 5);
             cHandler.SetCanvas("BaseCanvas", new IntXYPair(20, 20), canvasPosition);
 
-            Console.CursorVisible = false;
 
             while (!exit)
             {
