@@ -72,6 +72,11 @@ namespace ConsoleGameEngine.Components
             alignment = Alignment.Right;
         }
 
+        public void SetAlignment(Alignment alignment)
+        {
+            this.alignment = alignment;
+        }
+
         public void SetForegroundColor(Color foregroundColor)
         {
             this.foregroundColor = foregroundColor;

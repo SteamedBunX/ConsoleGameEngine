@@ -9,11 +9,13 @@ using System.Drawing;
 
 namespace Demo
 {
-    class Program
+    class Demo
     {
+        ComponentHandler cHandler;
+
         static void Main(string[] args)
         {
-            Program p = new Program();
+            Demo p = new Demo();
             //p.CanvasDemo();
             //p.ImageDemo();
             //p.BorderDemo();
@@ -23,12 +25,23 @@ namespace Demo
             p.DemoMainPage();
         }
 
+        public Demo()
+        {
+            Ini();
+        }
+
+        public void Ini()
+        {
+            cHandler = new ComponentHandler();
+            string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
+            cHandler.LoadImages(imageFolderPath);
+        }
+
         public void DemoMainPage()
         {
             //setup
             ComponentHandler cHandler = new ComponentHandler();
-            string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
-            cHandler.LoadImages(imageFolderPath);
+
             cHandler.SetCanvas("Logo", new Canvas(90, 35, 15, 0));
             cHandler.DrawToCanvas("Logo", "ConsoleGameEngineDemo_Logo", new IntXYPair(0, 0));
             cHandler.SetBorder("HomeMenuBorder", new Border(45, 18, 30, 10));

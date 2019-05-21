@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,16 +13,18 @@ namespace ConsoleGameEngine.Components
         Dictionary<string, Canvas> canvases = new Dictionary<string, Canvas>();
         Dictionary<string, Border> borders = new Dictionary<string, Border>();
         Dictionary<string, FreeString> freeStrings = new Dictionary<string, FreeString>();
+        Dictionary<string, FreeStringBundle> freeStringBundles = new Dictionary<string, FreeStringBundle>();
 
         #region FreeString
         public void SetFreeString(string name, FreeString freeString, Alignment alignment = Alignment.Left)
         {
             freeStrings[name] = freeString;
+            freeStrings[name].SetAlignment(alignment);
         }
 
         public void ChangeFreeStringAlignment(string name, Alignment alignment)
         {
-            if(freeStrings.ContainsKey(name))
+            if (freeStrings.ContainsKey(name))
             {
                 switch (alignment)
                 {
@@ -68,6 +71,68 @@ namespace ConsoleGameEngine.Components
         }
         #endregion
 
+        #region FreeStringBundle
+
+        public void SetFSBundle(string name, FreeStringBundle bundle)
+        {
+            freeStringBundles[name] = bundle;
+        }
+
+        public void AddContentToFSBundle(string name, string text)
+        {
+            if (borders.ContainsKey(name))
+            {
+                freeStringBundles[name].Add(text);
+            }
+        }
+
+        public void ChangeFSBundleTextColor(string name, Color textColor)
+        {
+            if (borders.ContainsKey(name))
+            {
+                freeStringBundles[name].ChangeTextColor(textColor);
+            }
+        }
+
+        public void ChangeFSBundleBGColor(string name, Color bgColor)
+        {
+            if (borders.ContainsKey(name))
+            {
+                freeStringBundles[name].ChangeBackgroundColor(bgColor);
+            }
+        }
+
+        public void ClearFreeStringBundle(string name)
+        {
+            if (borders.ContainsKey(name))
+            {
+                freeStringBundles[name].ClearContent();
+            }
+        }
+
+        public void ClearAllFreeStringBundle()
+        {
+            foreach(KeyValuePair<string, FreeStringBundle> item in freeStringBundles)
+            {
+                item.Value.ClearContent();
+            }
+
+        }
+
+        public void RemoveFreestringBundle(string name)
+        {
+            if (borders.ContainsKey(name))
+            {
+                freeStringBundles.Remove(name);
+            }
+        }
+        public void RemoveAllFreeStringBundle()
+        {
+            freeStringBundles.Clear();
+        }
+        #endregion
+
+
         #region Border
         public void SetBorder(string name, Border border)
         {
@@ -78,7 +143,7 @@ namespace ConsoleGameEngine.Components
         {
             if (borders.ContainsKey(name))
             {
-                borders[name].Move(xDelta,yDelta);
+                borders[name].Move(xDelta, yDelta);
             }
         }
 
@@ -235,5 +300,11 @@ namespace ConsoleGameEngine.Components
         }
         #endregion
 
+        public void ClearAll()
+        {
+            RemoveAllFreeStrings();
+            RemoveAllCanvas();
+            RemoveAllBorders();
+        }
     }
 }

@@ -125,6 +125,7 @@ namespace ConsoleGameEngine
             SetForeground(freeString.GetForegroundColor());
             SetBackground(freeString.GetBackgroundColor());
             PrintComponent(freeString.GetText(), freeString.GetPositionActual());
+            CleanUp();
         }
 
         public static void PrintFreeStringBundle(FreeStringBundle bundle)
@@ -151,7 +152,7 @@ namespace ConsoleGameEngine
                 PrintFreeString(current);
                 currentRow++;
             }
-
+            CleanUp();
         }
         #endregion
 

@@ -52,12 +52,12 @@ namespace ConsoleGameEngine.Components
             positionX += xDelta;
         }
 
-        public void ChangeDefaultTextColor(Color tColorDefault)
+        public void ChangeTextColor(Color tColorDefault)
         {
             this.tColor = tColorDefault;
         }
 
-        public void ChangeDefaultBackgroundColor(Color bColorDefault)
+        public void ChangeBackgroundColor(Color bColorDefault)
         {
             this.bColor = bColorDefault;
         }
