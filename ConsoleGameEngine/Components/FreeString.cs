@@ -41,11 +41,8 @@ namespace ConsoleGameEngine.Components
             : this(text, position.GetX(), position.GetY(), foregroundColor, backgroundColor) { }
 
         #endregion
-        public void Print()
-        {
-            Renderer.PrintFreeString(this);
-        }
 
+        #region Manipulation
         public void SetPosition(int x, int y)
         {
             position = new IntXYPair(x, y);
@@ -85,6 +82,10 @@ namespace ConsoleGameEngine.Components
             this.backgroundColor = backgroundColor;
         }
 
+        #endregion
+
+        #region Gets
+
         public IntXYPair GetPositionActual()
         {
             switch (alignment)
@@ -99,12 +100,17 @@ namespace ConsoleGameEngine.Components
                     return position;
             }
         }
-
         public string GetText() => text;
         public Color GetForegroundColor() => foregroundColor;
         public Color GetBackgroundColor() => backgroundColor;
         public IntXYPair GetPosition() => position;
         public Alignment GetAlignment() => alignment;
         public int GetTextLength() => text.Length;
+
+        #endregion
+        public void Print()
+        {
+            Renderer.PrintFreeString(this);
+        }
     }
 }

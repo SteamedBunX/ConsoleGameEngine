@@ -15,6 +15,7 @@ namespace ConsoleGameEngine.Components
         List<Color> colors = new List<Color>();
         int[,] bitmap;
 
+        #region Constructors
         public Canvas(int sizeX, int sizeY, int positionX, int positionY)
         {
             size = new IntXYPair(sizeX, sizeY);
@@ -31,6 +32,9 @@ namespace ConsoleGameEngine.Components
             bitmap.FillArray(16);
         }
 
+        #endregion
+
+        #region Manipulation
         public void Reset()
         {
             colors.Clear();
@@ -106,6 +110,9 @@ namespace ConsoleGameEngine.Components
             DrawImage(image, new IntXYPair(x, y));
         }
 
+        #endregion
+
+        #region Gets
         public IntXYPair GetPosition()
         {
             return position;
@@ -120,6 +127,8 @@ namespace ConsoleGameEngine.Components
         {
             return bitmap;
         }
+
+        #endregion
 
         public void Print() => Renderer.PrintCanvas(this);
 

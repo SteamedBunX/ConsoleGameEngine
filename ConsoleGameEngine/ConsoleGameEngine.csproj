@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Border.cs" />
     <Compile Include="Components\Canvas.cs" />
     <Compile Include="Components\FreeString.cs" />
     <Compile Include="Components\FreeStringBundle.cs" />

@@ -62,13 +62,13 @@ namespace Demo
                         menu.Down();
                         break;
                     case ConsoleKey.Q:
-                        menu.alignment = Alignment.Left;
+                        menu.LeftAlign();
                         break;
                     case ConsoleKey.W:
-                        menu.alignment = Alignment.Center;
+                        menu.CenterAlign();
                         break;
                     case ConsoleKey.E:
-                        menu.alignment = Alignment.Right;
+                        menu.RightAlign();
                         break;
                 }
             }

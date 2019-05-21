@@ -45,7 +45,7 @@ namespace ConsoleGameEngine.Components
         }
         #endregion
 
-        #region ChangeSetting
+        #region Manipulation
         public void Move(int xDelta, int yDelta)
         {
             positionY += yDelta;
@@ -77,7 +77,6 @@ namespace ConsoleGameEngine.Components
             alignment = Alignment.Right;
         }
 
-        #endregion
         public void Add(string text)
         {
             if (text.Length <= maxTextLength)
@@ -91,15 +90,12 @@ namespace ConsoleGameEngine.Components
             }
         }
 
-        public void Print()
-        {
-            Renderer.PrintFreeStringBundle(this);
-        }
-
         public void ClearContent()
         {
             content.Clear();
         }
+
+        #endregion
 
         #region Gets
         public int GetPositionX() => positionX;
@@ -110,5 +106,10 @@ namespace ConsoleGameEngine.Components
         public Color GetBackgroundColor() => bColor;
         public Alignment GetAlignment() => alignment;
         #endregion
+
+        public void Print()
+        {
+            Renderer.PrintFreeStringBundle(this);
+        }
     }
 }

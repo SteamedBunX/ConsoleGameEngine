@@ -11,12 +11,11 @@ namespace ConsoleGameEngine.Components
     {
         int positionX, positionY, sizeX;
         Color color1Default = Color.White, color2Default = Color.Black;
-        public Alignment alignment;
-
+        Alignment alignment;
         List<MenuItem<T>> menuItems = new List<MenuItem<T>>();
-
         int currentSelection = 0;
 
+        #region Constructors
         public Menu(int positionX, int positionY, int sizeX,
             Alignment alignment = Alignment.Center)
         {
@@ -35,6 +34,9 @@ namespace ConsoleGameEngine.Components
             this.color2Default = color2Default;
         }
 
+        #endregion
+
+        #region Manipulation
         public void ChangeSelection(int selection)
         {
             if (selection <= 0)
@@ -142,23 +144,49 @@ namespace ConsoleGameEngine.Components
             }
         }
 
+        public void LeftAlign()
+        {
+            alignment = Alignment.Left;
+        }
+
+        public void CenterAlign()
+        {
+            alignment = Alignment.Center;
+        }
+
+        public void RightAlign()
+        {
+            alignment = Alignment.Right;
+        }
+
+        public void SetAlignment(Alignment alignment)
+        {
+            this.alignment = alignment;
+        }
+
         public T Select()
         {
             menuItems[currentSelection].Selected();
             return menuItems[currentSelection].GetReturn();
         }
 
+        #endregion
+
+        #region Gets
+        public int GetPositionX() => positionX;
+        public int GetPositionY() => positionY;
+        public int GetSizeX() => sizeX;
+        public Alignment GetAlignment() => alignment;
+        public List<MenuItem<T>> GetMenuItems() => menuItems;
+        public int GetCurrentSelection() => currentSelection;
+        public T GetReturn() => menuItems[currentSelection].GetReturn();
+
+        #endregion
         public void Print()
         {
             Renderer.PrintMenu(this);
         }
 
-        public int GetPositionX() => positionX;
-        public int GetPositionY() => positionY;
-        public int GetSizeX() => sizeX;
-        public List<MenuItem<T>> GetMenuItems() => menuItems;
-        public int GetCurrentSelection() => currentSelection;
-        public T GetReturn() => menuItems[currentSelection].GetReturn();
 
     }
 }
