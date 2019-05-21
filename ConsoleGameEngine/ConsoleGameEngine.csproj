@@ -53,6 +53,7 @@
     <Compile Include="Components\ComponentHandler.cs" />
     <Compile Include="Components\Menu.cs" />
     <Compile Include="Components\MenuItem.cs" />
+    <Compile Include="Components\ScrollableMenu.cs" />
     <Compile Include="CustomStructs.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Loader.cs" />

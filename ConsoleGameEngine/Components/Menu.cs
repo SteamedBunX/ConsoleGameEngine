@@ -9,11 +9,11 @@ namespace ConsoleGameEngine.Components
 {
     public class Menu<T>
     {
-        int positionX, positionY, sizeX;
-        Color color1Default = Color.White, color2Default = Color.Black;
-        Alignment alignment;
-        List<MenuItem<T>> menuItems = new List<MenuItem<T>>();
-        int currentSelection = 0;
+        protected int positionX, positionY, sizeX;
+        protected Color color1Default = Color.White, color2Default = Color.Black;
+        protected Alignment alignment;
+        protected List<MenuItem<T>> menuItems = new List<MenuItem<T>>();
+        protected int currentSelection = 0;
 
         #region Constructors
         public Menu(int positionX, int positionY, int sizeX,
