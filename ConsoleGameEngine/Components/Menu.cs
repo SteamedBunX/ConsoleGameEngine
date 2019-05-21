@@ -124,6 +124,10 @@ namespace ConsoleGameEngine.Components
             menuItems.Add(new MenuItem<T>(text, returnValue, color1, color2));
         }
 
+        public bool AtTop()
+        {
+            return !(currentSelection > 0);
+        }
         public bool Up()
         {
             if (currentSelection > 0)
@@ -134,6 +138,11 @@ namespace ConsoleGameEngine.Components
                 return true;
             }
             return false;
+        }
+
+        public bool AtBottem()
+        {
+            return !(currentSelection < menuItems.Count - 1);
         }
 
         public bool Down()

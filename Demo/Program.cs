@@ -133,19 +133,12 @@ namespace Demo
             menu.LoadInToFocusAction("1", PrintOnePikachu);
             menu.LoadInToFocusAction(1, PrintTwoPikachu);
             FreeString guide = new FreeString("Q | LeftAlign, W | CenterAlign, E | RightAlign", 5, 20);
-            bool needRefresh = true;
             bool exit = false;
             while (!exit)
             {
                 guide.Print();
                 menu.Print();
-                Renderer.SetBackground(Color.Black);
                 ConsoleKey switcher = Console.ReadKey().Key;
-                if (needRefresh)
-                {
-                    Console.Clear();
-                    needRefresh = false;
-                }
                 switch (switcher)
                 {
                     case ConsoleKey.Enter:
@@ -155,25 +148,30 @@ namespace Demo
                         }
                         break;
                     case ConsoleKey.UpArrow:
-                        if (menu.Up())
+                        if (!menu.AtTop())
                         {
-                            needRefresh = true;
+                            Console.Clear();
+                            menu.Up();
                         }
                         break;
                     case ConsoleKey.DownArrow:
-                        if (menu.Down())
+                        if (!menu.AtBottem())
                         {
-                            needRefresh = true;
+                            Console.Clear();
+                            menu.Down();
                         }
                         break;
                     case ConsoleKey.Q:
                         menu.LeftAlign();
+                        Console.Clear();
                         break;
                     case ConsoleKey.W:
                         menu.CenterAlign();
+                        Console.Clear();
                         break;
                     case ConsoleKey.E:
                         menu.RightAlign();
+                        Console.Clear();
                         break;
                 }
             }

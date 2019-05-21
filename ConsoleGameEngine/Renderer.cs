@@ -162,41 +162,41 @@ namespace ConsoleGameEngine
         public static void PrintBorder(Border border)
         {
             int bufferLimitY = Console.BufferHeight - 1;
-            if (IsInScope(border.positionX, border.positionY, border.sizeX, border.sizeY))
+            if (IsInScope(border.GetPositionX(), border.GetPositionY(), border.GetSizeX(), border.GetSizeY()))
             {
-                int topLimit = Math.Max(0, 0 - border.positionY);
+                int topLimit = Math.Max(0, 0 - border.GetPositionY());
 
-                string ceilingAndFloor = new string('═', border.sizeX - 2);
-                string middleSpace = new string(' ', border.sizeX - 2);
+                string ceilingAndFloor = new string('═', border.GetSizeX() - 2);
+                string middleSpace = new string(' ', border.GetSizeX() - 2);
 
                 string ceiling = $"╔{ceilingAndFloor}╗";
                 string floor = $"╚{ceilingAndFloor}╝";
                 string middle = $"║{middleSpace}║";
 
                 //trim the string based on the actual size
-                if (border.positionX < 0)
+                if (border.GetPositionX() < 0)
                 {
-                    ceiling = ceiling.Substring(0 - border.positionX);
-                    floor = floor.Substring(0 - border.positionX);
-                    middle = middle.Substring(0 - border.positionX);
+                    ceiling = ceiling.Substring(0 - border.GetPositionX());
+                    floor = floor.Substring(0 - border.GetPositionX());
+                    middle = middle.Substring(0 - border.GetPositionX());
                 }
-                if (border.positionX + border.sizeX > Console.BufferWidth)
+                if (border.GetPositionX() + border.GetSizeX() > Console.BufferWidth)
                 {
-                    ceiling = ceiling.Substring(0, Console.BufferWidth - border.positionX);
-                    floor = floor.Substring(0, Console.BufferWidth - border.positionX);
-                    middle = middle.Substring(0, Console.BufferWidth - border.positionX);
+                    ceiling = ceiling.Substring(0, Console.BufferWidth - border.GetPositionX());
+                    floor = floor.Substring(0, Console.BufferWidth - border.GetPositionX());
+                    middle = middle.Substring(0, Console.BufferWidth - border.GetPositionX());
                 }
 
-                for (int y = topLimit; y < border.sizeY && y + border.positionY < bufferLimitY; y++)
+                for (int y = topLimit; y < border.GetSizeY() && y + border.GetPositionY() < bufferLimitY; y++)
                 {
 
-                    Console.SetCursorPosition(Math.Max(0, border.positionX), border.positionY + y);
+                    Console.SetCursorPosition(Math.Max(0, border.GetPositionX()), border.GetPositionY() + y);
 
                     if (y == 0)
                     {
                         Console.Write(ceiling);
                     }
-                    else if (y == border.sizeY - 1)
+                    else if (y == border.GetSizeY() - 1)
                     {
                         Console.Write(floor);
                     }
@@ -217,22 +217,22 @@ namespace ConsoleGameEngine
 
         public static void PrintHollowBorder(Border border)
         {
-            if (IsInScope(border.positionX, border.positionY, border.sizeX, border.sizeY))
+            if (IsInScope(border.GetPositionX(), border.GetPositionY(), border.GetSizeX(), border.GetSizeY()))
             {
-                string ceilingAndFloor = new string('═', border.sizeX - 2);
-                int x2 = border.positionX + border.sizeX - 2;
+                string ceilingAndFloor = new string('═', border.GetSizeX() - 2);
+                int x2 = border.GetPositionX() + border.GetSizeX() - 2;
 
                 string ceiling = $"╔{ceilingAndFloor}╗";
                 string floor = $"╚{ceilingAndFloor}╝";
 
-                PrintComponent(ceiling, border.positionX, border.positionY);
-                for (int yAlt = 0; yAlt < border.sizeY - 2; yAlt++)
+                PrintComponent(ceiling, border.GetPositionX(), border.GetPositionY());
+                for (int yAlt = 0; yAlt < border.GetSizeY() - 2; yAlt++)
                 {
-                    int row = border.positionY + 1 + yAlt;
-                    PrintComponent("║", border.positionX, row);
-                    PrintComponent("║", border.positionX + border.sizeX - 1, row);
+                    int row = border.GetPositionY() + 1 + yAlt;
+                    PrintComponent("║", border.GetPositionX(), row);
+                    PrintComponent("║", border.GetPositionX() + border.GetSizeX() - 1, row);
                 }
-                PrintComponent(floor, border.positionX, border.positionY + border.sizeY - 1);
+                PrintComponent(floor, border.GetPositionX(), border.GetPositionY() + border.GetSizeY() - 1);
             }
             CleanUp();
         }

@@ -8,7 +8,7 @@ namespace ConsoleGameEngine
 {
     public class Border
     {
-        public int positionX, positionY, sizeX, sizeY;
+        int positionX, positionY, sizeX, sizeY;
 
         #region Constructors
         public Border(IntXYPair position, IntXYPair size)
