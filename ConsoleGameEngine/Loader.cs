@@ -12,12 +12,6 @@ namespace ConsoleGameEngine
 {
     public static class Loader
     {
-
-
-
-
-
-
         // Image Loading Component
         public static Dictionary<string, Image> LoadImages(string folderPath)
         {
@@ -28,7 +22,7 @@ namespace ConsoleGameEngine
                 if (f.Substring(f.Length - 3).ToLower() == ".ci")
                 {
                     Image image = LoadImage(f);
-                    images.Add(image.Name, image);
+                    images[image.Name] = image;
                 }
             }
             return images;

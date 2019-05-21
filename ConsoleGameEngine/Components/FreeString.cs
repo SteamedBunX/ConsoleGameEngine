@@ -43,12 +43,12 @@ namespace ConsoleGameEngine.Components
         #endregion
 
         #region Manipulation
-        public void SetPosition(int x, int y)
+        public void MoveTo(int x, int y)
         {
             position = new IntXYPair(x, y);
         }
 
-        public void SetPosition(IntXYPair newPosition)
+        public void MoveTo(IntXYPair newPosition)
         {
             position = newPosition;
         }

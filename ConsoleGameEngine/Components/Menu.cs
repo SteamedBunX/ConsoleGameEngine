@@ -124,24 +124,28 @@ namespace ConsoleGameEngine.Components
             menuItems.Add(new MenuItem<T>(text, returnValue, color1, color2));
         }
 
-        public void Up()
+        public bool Up()
         {
             if (currentSelection > 0)
             {
                 menuItems[currentSelection].OutOfFocus();
                 currentSelection--;
                 menuItems[currentSelection].InToFocus();
+                return true;
             }
+            return false;
         }
 
-        public void Down()
+        public bool Down()
         {
             if (currentSelection < menuItems.Count - 1)
             {
                 menuItems[currentSelection].OutOfFocus();
                 currentSelection++;
                 menuItems[currentSelection].InToFocus();
+                return true;
             }
+            return false;
         }
 
         public void LeftAlign()

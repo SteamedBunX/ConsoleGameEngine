@@ -21,6 +21,21 @@ namespace ConsoleGameEngine.Components
             freeStrings[name] = freeString;
             freeStrings[name].SetAlignment(alignment);
         }
+        public void MoveFreeString(string name, int deltaX, int deltaY)
+        {
+            if (freeStrings.ContainsKey(name))
+            {
+                freeStrings[name].Move(deltaX, deltaY);
+            }
+        }
+
+        public void SetFreeStringPosition(string name, int x, int y)
+        {
+            if (freeStrings.ContainsKey(name))
+            {
+                freeStrings[name].MoveTo(x, y);
+            }
+        }
 
         public void ChangeFreeStringAlignment(string name, Alignment alignment)
         {
@@ -112,7 +127,7 @@ namespace ConsoleGameEngine.Components
 
         public void ClearAllFreeStringBundle()
         {
-            foreach(KeyValuePair<string, FreeStringBundle> item in freeStringBundles)
+            foreach (KeyValuePair<string, FreeStringBundle> item in freeStringBundles)
             {
                 item.Value.ClearContent();
             }
@@ -271,14 +286,14 @@ namespace ConsoleGameEngine.Components
             var imageList = Loader.LoadImages(folderPath);
             foreach (var item in imageList)
             {
-                images.Add(item.Key, item.Value);
+                images[item.Key] = item.Value;
             }
         }
 
         public void LoadImage(string path)
         {
             Image image = Loader.LoadImage(path);
-            images.Add(image.Name, image);
+            images[image.Name] = image;
         }
 
         public void ClearImages()
@@ -300,11 +315,12 @@ namespace ConsoleGameEngine.Components
         }
         #endregion
 
-        public void ClearAll()
+        public void Reset()
         {
             RemoveAllFreeStrings();
             RemoveAllCanvas();
             RemoveAllBorders();
+            RemoveAllFreeStringBundle();
         }
     }
 }

@@ -40,11 +40,6 @@ namespace Demo
         public void DemoMainPage()
         {
             //setup
-            ComponentHandler cHandler = new ComponentHandler();
-
-            cHandler.SetCanvas("Logo", new Canvas(90, 35, 15, 0));
-            cHandler.DrawToCanvas("Logo", "ConsoleGameEngineDemo_Logo", new IntXYPair(0, 0));
-            cHandler.SetBorder("HomeMenuBorder", new Border(45, 18, 30, 10));
             Menu<int> mainMenu = new Menu<int>(46, 19, 28);
             mainMenu.AddItem("FreeString", 0);
             mainMenu.AddItem("FreeStringBundle", 1);
@@ -61,6 +56,11 @@ namespace Demo
             {
                 if (needRefresh)
                 {
+                    cHandler.Reset();
+                    cHandler.SetCanvas("Logo", new Canvas(90, 35, 15, 0));
+                    cHandler.DrawToCanvas("Logo", "ConsoleGameEngineDemo_Logo", new IntXYPair(0, 0));
+                    cHandler.SetBorder("HomeMenuBorder", new Border(45, 18, 30, 10));
+
                     Console.Clear();
                     cHandler.PrintAllCanvas();
                     cHandler.PrintAllBorders();
@@ -84,18 +84,23 @@ namespace Demo
                         {
                             case 0:
                                 FreeStringDemo();
+                                needRefresh = true;
                                 break;
                             case 1:
                                 FreeStringBundleDemo();
+                                needRefresh = true;
                                 break;
                             case 2:
                                 ImageDemo();
+                                needRefresh = true;
                                 break;
                             case 3:
                                 CanvasDemo();
+                                needRefresh = true;
                                 break;
                             case 4:
                                 MenuDemo();
+                                needRefresh = true;
                                 break;
                             case 5:
                                 break;
@@ -105,7 +110,7 @@ namespace Demo
                                 exit = true;
                                 break;
                         }
-                        needRefresh = true;
+
                         break;
                 }
             }
@@ -114,10 +119,8 @@ namespace Demo
 
         public void MenuDemo()
         {
+            cHandler.Reset();
             Console.Clear();
-            ComponentHandler cHandler = new ComponentHandler();
-            string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
-            cHandler.LoadImages(imageFolderPath);
 
             Menu<int> menu = new Menu<int>(30, 10, 20, Color.Green, Color.Black);
 
@@ -130,6 +133,7 @@ namespace Demo
             menu.LoadInToFocusAction("1", PrintOnePikachu);
             menu.LoadInToFocusAction(1, PrintTwoPikachu);
             FreeString guide = new FreeString("Q | LeftAlign, W | CenterAlign, E | RightAlign", 5, 20);
+            bool needRefresh = true;
             bool exit = false;
             while (!exit)
             {
@@ -137,7 +141,11 @@ namespace Demo
                 menu.Print();
                 Renderer.SetBackground(Color.Black);
                 ConsoleKey switcher = Console.ReadKey().Key;
-                Console.Clear();
+                if (needRefresh)
+                {
+                    Console.Clear();
+                    needRefresh = false;
+                }
                 switch (switcher)
                 {
                     case ConsoleKey.Enter:
@@ -147,10 +155,16 @@ namespace Demo
                         }
                         break;
                     case ConsoleKey.UpArrow:
-                        menu.Up();
+                        if (menu.Up())
+                        {
+                            needRefresh = true;
+                        }
                         break;
                     case ConsoleKey.DownArrow:
-                        menu.Down();
+                        if (menu.Down())
+                        {
+                            needRefresh = true;
+                        }
                         break;
                     case ConsoleKey.Q:
                         menu.LeftAlign();
@@ -178,10 +192,10 @@ namespace Demo
 
         public void FreeStringDemo()
         {
+            cHandler.Reset();
             IntXYPair textPosition = new IntXYPair(30, 10);
-            FreeString freeString = new FreeString("Hello World!", textPosition, Color.Black, Color.Green);
-            Border border = new Border(freeString.GetPosition().GetX() - freeString.GetTextLength()
-                , freeString.GetPosition().GetY() - 1, freeString.GetTextLength() * 2 + 1, 3);
+            cHandler.SetFreeString("Hello", new FreeString("Hello World!", textPosition, Color.Black, Color.Green));
+            cHandler.SetBorder("DialogBorder", new Border(18, 9, 25, 3));
             bool exit = false;
             while (!exit)
             {
@@ -190,8 +204,8 @@ namespace Demo
                 Console.Clear();
                 Console.SetCursorPosition(10, 20);
                 Console.Write("Q | LeftAlign, W | CenterAlign, E | RightAlign");
-                border.Print();
-                freeString.Print();
+                cHandler.PrintAllBorders();
+                cHandler.PrintAllFreeStrings();
                 var input = Console.ReadKey(true);
                 switch (input.Key)
                 {
@@ -199,29 +213,29 @@ namespace Demo
                         exit = true;
                         break;
                     case ConsoleKey.LeftArrow:
-                        freeString.Move(-1, 0);
-                        border.Move(-1, 0);
+                        cHandler.MoveFreeString("Hello", -1, 0);
+                        cHandler.MoveBorder("DialogBorder", -1, 0);
                         break;
                     case ConsoleKey.UpArrow:
-                        freeString.Move(0, -1);
-                        border.Move(0, -1);
+                        cHandler.MoveFreeString("Hello", 0, -1);
+                        cHandler.MoveBorder("DialogBorder", 0, -1);
                         break;
                     case ConsoleKey.RightArrow:
-                        freeString.Move(1, 0);
-                        border.Move(1, 0);
+                        cHandler.MoveFreeString("Hello", 1, 0);
+                        cHandler.MoveBorder("DialogBorder", 1, 0);
                         break;
                     case ConsoleKey.DownArrow:
-                        freeString.Move(0, 1);
-                        border.Move(0, 1);
+                        cHandler.MoveFreeString("Hello", 0, 1);
+                        cHandler.MoveBorder("DialogBorder", 0, 1);
                         break;
                     case ConsoleKey.Q:
-                        freeString.LeftAlign();
+                        cHandler.ChangeFreeStringAlignment("Hello", Alignment.Left);
                         break;
                     case ConsoleKey.W:
-                        freeString.CenterAlign();
+                        cHandler.ChangeFreeStringAlignment("Hello", Alignment.Center);
                         break;
                     case ConsoleKey.E:
-                        freeString.RightAlign();
+                        cHandler.ChangeFreeStringAlignment("Hello", Alignment.Right);
                         break;
                 }
 
@@ -288,9 +302,7 @@ namespace Demo
 
         public void ImageDemo()
         {
-            ComponentHandler cHandler = new ComponentHandler();
-            string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
-            cHandler.LoadImages(imageFolderPath);
+            cHandler.Reset();
 
             IntXYPair pikachuPosition = new IntXYPair(5, 5);
             bool exit = false;
@@ -322,9 +334,7 @@ namespace Demo
 
         public void CanvasDemo()
         {
-            ComponentHandler cHandler = new ComponentHandler();
-            string imageFolderPath = Environment.CurrentDirectory + @"\Images\";
-            cHandler.LoadImages(imageFolderPath);
+            cHandler.Reset();
             bool exit = false;
 
             IntXYPair canvasPosition = new IntXYPair(5, 5);
@@ -378,9 +388,9 @@ namespace Demo
             }
         }
 
-        enum Mode { Filled, Hollow }
         public void BorderDemo()
         {
+            cHandler.Reset();
             Border border = new Border(-1, -2, 40, 20);
             Mode mode = Mode.Filled;
             bool exit = false;
@@ -421,5 +431,7 @@ namespace Demo
                 Console.Clear();
             }
         }
+
+        enum Mode { Filled, Hollow }
     }
 }
