@@ -22,6 +22,11 @@ namespace Demo
             p.MenuDemo();
         }
 
+        public void DemoMainPage()
+        {
+
+        }
+
         public void MenuDemo()
         {
             ComponentHandler cHandler = new ComponentHandler();
