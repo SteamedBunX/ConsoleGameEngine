@@ -47,12 +47,14 @@
   <ItemGroup>
     <Compile Include="Components\Border.cs" />
     <Compile Include="Components\Canvas.cs" />
+    <Compile Include="Components\Digit.cs" />
     <Compile Include="Components\FreeString.cs" />
     <Compile Include="Components\FreeStringBundle.cs" />
     <Compile Include="Components\Image.cs" />
     <Compile Include="Components\ComponentHandler.cs" />
     <Compile Include="Components\Menu.cs" />
     <Compile Include="Components\MenuItem.cs" />
+    <Compile Include="Components\Number.cs" />
     <Compile Include="Components\ScrollableMenu.cs" />
     <Compile Include="CustomStructs.cs" />
     <Compile Include="Enums.cs" />
