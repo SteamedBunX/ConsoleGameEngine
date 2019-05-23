@@ -263,7 +263,7 @@ namespace ConsoleGameEngine
             List<MenuItem<T>> menuitems = menu.GetMenuItems();
             for (int i = 0; i < menuitems.Count; i++)
             {
-                if (i == menu.GetCurrentSelection())
+                if (i == menu.GetCurrentSelectedIndex())
                 {
                     PrintFreeString(new FreeString(menuitems[i].GetText(), positionX, currentRow,
                         menuitems[i].GetColor2(), menuitems[i].GetColor1(), menu.GetAlignment()));
@@ -276,6 +276,56 @@ namespace ConsoleGameEngine
                 currentRow++;
             }
             CleanUp();
+        }
+
+        public static void PrintScrollableMenu<T>(ScrollableMenu<T> menu)
+        {
+            if (menu.GetTotalItemNumber() < menu.GetMaxShown())
+            {
+                PrintMenu(menu);
+            }
+            else
+            {
+                int currentRow = menu.GetPositionY();
+                int positionX = menu.GetPositionX();
+                int dotPosition = menu.GetPositionX() + (menu.GetSizeX() / 2 - 1);
+                switch (menu.GetAlignment())
+                {
+                    case Alignment.Left:
+                        break;
+                    case Alignment.Right:
+                        positionX = positionX + menu.GetSizeX() - 1;
+                        break;
+                    default:
+                        positionX = positionX + (menu.GetSizeX() / 2 - 1);
+                        break;
+                }
+                List<MenuItem<T>> menuitems = menu.GetMenuItemsInScope();
+                for (int i = 0; i < menuitems.Count; i++)
+                {
+                    if (i == 0 && !menu.FirstIsInScope())
+                    {
+                        PrintFreeString(new FreeString("...", dotPosition, currentRow, 
+                            menuitems[i].GetColor1(), menuitems[i].GetColor2(), Alignment.Center));
+                    } else if (i == menuitems.Count-1 && !menu.LastIsInScope())
+                    {
+                        PrintFreeString(new FreeString("...", dotPosition, currentRow,
+                            menuitems[i].GetColor1(), menuitems[i].GetColor2(), Alignment.Center));
+                    }
+                    else if (i == menu.GetCurrentSelectedIndex())
+                    {
+                        PrintFreeString(new FreeString(menuitems[i].GetText(), positionX, currentRow,
+                            menuitems[i].GetColor2(), menuitems[i].GetColor1(), menu.GetAlignment()));
+                    }
+                    else
+                    {
+                        PrintFreeString(new FreeString(menuitems[i].GetText(), positionX, currentRow,
+                           menuitems[i].GetColor1(), menuitems[i].GetColor2(), menu.GetAlignment()));
+                    }
+                    currentRow++;
+                }
+                CleanUp();
+            }
         }
 
         #endregion

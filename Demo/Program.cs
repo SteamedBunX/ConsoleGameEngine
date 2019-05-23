@@ -116,77 +116,6 @@ namespace Demo
             mainMenu.Print();
         }
 
-        public void MenuDemo()
-        {
-            cHandler.Reset();
-            Console.Clear();
-
-            Menu<int> menu = new Menu<int>(30, 10, 20, Color.Green, Color.Black);
-
-            menu.AddItem("1", 0);
-            menu.AddItem("2", 1);
-            menu.AddItem("3rd one is longer the the max length", 2);
-            menu.AddItem("4. Different Color", 3, Color.Red, Color.Blue);
-            menu.AddItem("5", 4);
-            menu.AddItem("Exit", 5);
-            menu.LoadInToFocusAction("1", PrintOnePikachu);
-            menu.LoadInToFocusAction(1, PrintTwoPikachu);
-            FreeString guide = new FreeString("Q | LeftAlign, W | CenterAlign, E | RightAlign", 5, 20);
-            bool exit = false;
-            while (!exit)
-            {
-                guide.Print();
-                menu.Print();
-                ConsoleKey switcher = Console.ReadKey().Key;
-                switch (switcher)
-                {
-                    case ConsoleKey.Enter:
-                        if (menu.GetReturn() == 5)
-                        {
-                            exit = true;
-                        }
-                        break;
-                    case ConsoleKey.UpArrow:
-                        if (!menu.AtTop())
-                        {
-                            Console.Clear();
-                            menu.Up();
-                        }
-                        break;
-                    case ConsoleKey.DownArrow:
-                        if (!menu.AtBottem())
-                        {
-                            Console.Clear();
-                            menu.Down();
-                        }
-                        break;
-                    case ConsoleKey.Q:
-                        menu.LeftAlign();
-                        Console.Clear();
-                        break;
-                    case ConsoleKey.W:
-                        menu.CenterAlign();
-                        Console.Clear();
-                        break;
-                    case ConsoleKey.E:
-                        menu.RightAlign();
-                        Console.Clear();
-                        break;
-                }
-            }
-
-            void PrintOnePikachu()
-            {
-                cHandler.PrintImage("Pikachu", 5, 5);
-            }
-
-            void PrintTwoPikachu()
-            {
-                cHandler.PrintImage("Pikachu", 5, 5);
-                cHandler.PrintImage("Pikachu", 50, 5);
-            }
-        }
-
         public void FreeStringDemo()
         {
             cHandler.Reset();
@@ -297,6 +226,51 @@ namespace Demo
             }
         }
 
+        public void BorderDemo()
+        {
+            cHandler.Reset();
+            Console.Clear();
+            Border border = new Border(30, 5, 40, 20);
+            Mode mode = Mode.Filled;
+            bool exit = false;
+
+            while (!exit)
+            {
+                Console.WriteLine(new string('O', 3360));
+                Console.Write("Press C to change between hollow and filled BorderBox");
+                if (mode == Mode.Hollow)
+                {
+                    border.PrintHollow();
+                }
+                else
+                {
+                    border.Print();
+                }
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.Escape:
+                        exit = true;
+                        break;
+                    case ConsoleKey.C:
+                        mode = mode == Mode.Hollow ? Mode.Filled : Mode.Hollow;
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        border.Move(-1, 0);
+                        break;
+                    case ConsoleKey.UpArrow:
+                        border.Move(0, -1);
+                        break;
+                    case ConsoleKey.RightArrow:
+                        border.Move(1, 0);
+                        break;
+                    case ConsoleKey.DownArrow:
+                        border.Move(0, 1);
+                        break;
+                }
+                Console.Clear();
+            }
+        }
+
         public void ImageDemo()
         {
             cHandler.Reset();
@@ -385,48 +359,74 @@ namespace Demo
             }
         }
 
-        public void BorderDemo()
+        public void MenuDemo()
         {
             cHandler.Reset();
             Console.Clear();
-            Border border = new Border(30, 5, 40, 20);
-            Mode mode = Mode.Filled;
-            bool exit = false;
 
+            Menu<int> menu = new Menu<int>(30, 10, 20, Color.Green, Color.Black);
+
+            menu.AddItem("1", 0);
+            menu.AddItem("2", 1);
+            menu.AddItem("3rd one is longer the the max length", 2);
+            menu.AddItem("4. Different Color", 3, Color.Red, Color.Blue);
+            menu.AddItem("5", 4);
+            menu.AddItem("Exit", 5);
+            menu.LoadInToFocusAction("1", PrintOnePikachu);
+            menu.LoadInToFocusAction(1, PrintTwoPikachu);
+            FreeString guide = new FreeString("Q | LeftAlign, W | CenterAlign, E | RightAlign", 5, 20);
+            bool exit = false;
             while (!exit)
             {
-                Console.WriteLine(new string('O', 3360));
-                Console.Write("Press C to change between hollow and filled BorderBox");
-                if (mode == Mode.Hollow)
+                guide.Print();
+                menu.Print();
+                ConsoleKey switcher = Console.ReadKey().Key;
+                switch (switcher)
                 {
-                    border.PrintHollow();
-                }
-                else
-                {
-                    border.Print();
-                }
-                switch (Console.ReadKey().Key)
-                {
-                    case ConsoleKey.Escape:
-                        exit = true;
-                        break;
-                    case ConsoleKey.C:
-                        mode = mode == Mode.Hollow ? Mode.Filled : Mode.Hollow;
-                        break;
-                    case ConsoleKey.LeftArrow:
-                        border.Move(-1, 0);
+                    case ConsoleKey.Enter:
+                        if (menu.GetReturn() == 5)
+                        {
+                            exit = true;
+                        }
                         break;
                     case ConsoleKey.UpArrow:
-                        border.Move(0, -1);
-                        break;
-                    case ConsoleKey.RightArrow:
-                        border.Move(1, 0);
+                        if (!menu.AtTop())
+                        {
+                            Console.Clear();
+                            menu.Up();
+                        }
                         break;
                     case ConsoleKey.DownArrow:
-                        border.Move(0, 1);
+                        if (!menu.AtBottem())
+                        {
+                            Console.Clear();
+                            menu.Down();
+                        }
+                        break;
+                    case ConsoleKey.Q:
+                        menu.LeftAlign();
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.W:
+                        menu.CenterAlign();
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.E:
+                        menu.RightAlign();
+                        Console.Clear();
                         break;
                 }
-                Console.Clear();
+            }
+
+            void PrintOnePikachu()
+            {
+                cHandler.PrintImage("Pikachu", 5, 5);
+            }
+
+            void PrintTwoPikachu()
+            {
+                cHandler.PrintImage("Pikachu", 5, 5);
+                cHandler.PrintImage("Pikachu", 50, 5);
             }
         }
 

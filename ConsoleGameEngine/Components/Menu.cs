@@ -13,7 +13,7 @@ namespace ConsoleGameEngine.Components
         protected Color color1Default = Color.White, color2Default = Color.Black;
         protected Alignment alignment;
         protected List<MenuItem<T>> menuItems = new List<MenuItem<T>>();
-        protected int currentSelection = 0;
+        protected int currentSelectedIndex = 0;
 
         #region Constructors
         public Menu(int positionX, int positionY, int sizeX,
@@ -49,10 +49,10 @@ namespace ConsoleGameEngine.Components
             }
             else
             {
-                if (currentSelection != selection)
+                if (currentSelectedIndex != selection)
                 {
-                    currentSelection = selection;
-                    menuItems[currentSelection].InToFocus();
+                    currentSelectedIndex = selection;
+                    menuItems[currentSelectedIndex].InToFocus();
                 }
             }
         }
@@ -126,15 +126,15 @@ namespace ConsoleGameEngine.Components
 
         public bool AtTop()
         {
-            return !(currentSelection > 0);
+            return !(currentSelectedIndex > 0);
         }
-        public bool Up()
+        public virtual bool Up()
         {
-            if (currentSelection > 0)
+            if (currentSelectedIndex > 0)
             {
-                menuItems[currentSelection].OutOfFocus();
-                currentSelection--;
-                menuItems[currentSelection].InToFocus();
+                menuItems[currentSelectedIndex].OutOfFocus();
+                currentSelectedIndex--;
+                menuItems[currentSelectedIndex].InToFocus();
                 return true;
             }
             return false;
@@ -142,16 +142,16 @@ namespace ConsoleGameEngine.Components
 
         public bool AtBottem()
         {
-            return !(currentSelection < menuItems.Count - 1);
+            return !(currentSelectedIndex < menuItems.Count - 1);
         }
 
-        public bool Down()
+        public virtual bool Down()
         {
-            if (currentSelection < menuItems.Count - 1)
+            if (currentSelectedIndex < menuItems.Count - 1)
             {
-                menuItems[currentSelection].OutOfFocus();
-                currentSelection++;
-                menuItems[currentSelection].InToFocus();
+                menuItems[currentSelectedIndex].OutOfFocus();
+                currentSelectedIndex++;
+                menuItems[currentSelectedIndex].InToFocus();
                 return true;
             }
             return false;
@@ -179,8 +179,8 @@ namespace ConsoleGameEngine.Components
 
         public T Select()
         {
-            menuItems[currentSelection].Selected();
-            return menuItems[currentSelection].GetReturn();
+            menuItems[currentSelectedIndex].Selected();
+            return menuItems[currentSelectedIndex].GetReturn();
         }
 
         #endregion
@@ -191,11 +191,12 @@ namespace ConsoleGameEngine.Components
         public int GetSizeX() => sizeX;
         public Alignment GetAlignment() => alignment;
         public List<MenuItem<T>> GetMenuItems() => menuItems;
-        public int GetCurrentSelection() => currentSelection;
-        public T GetReturn() => menuItems[currentSelection].GetReturn();
+        public int GetCurrentSelectedIndex() => currentSelectedIndex;
+        public int GetTotalItemNumber() => menuItems.Count;
+        public T GetReturn() => menuItems[currentSelectedIndex].GetReturn();
 
         #endregion
-        public void Print()
+        public virtual void Print()
         {
             Renderer.PrintMenu(this);
         }
