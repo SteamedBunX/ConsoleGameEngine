@@ -280,7 +280,7 @@ namespace ConsoleGameEngine
 
         public static void PrintScrollableMenu<T>(ScrollableMenu<T> menu)
         {
-            if (menu.GetTotalItemNumber() < menu.GetMaxShown())
+            if (menu.GetTotalItemNumber() < menu.GetScopeSize())
             {
                 PrintMenu(menu);
             }
@@ -312,7 +312,7 @@ namespace ConsoleGameEngine
                         PrintFreeString(new FreeString("...", dotPosition, currentRow,
                             menuitems[i].GetColor1(), menuitems[i].GetColor2(), Alignment.Center));
                     }
-                    else if (i == menu.GetCurrentSelectedIndex())
+                    else if (i+menu.GetFirstItemIndexInScope() == menu.GetCurrentSelectedIndex())
                     {
                         PrintFreeString(new FreeString(menuitems[i].GetText(), positionX, currentRow,
                             menuitems[i].GetColor2(), menuitems[i].GetColor1(), menu.GetAlignment()));

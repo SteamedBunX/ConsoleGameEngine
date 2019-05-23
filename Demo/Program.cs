@@ -102,6 +102,8 @@ namespace Demo
                                 needRefresh = true;
                                 break;
                             case 6:
+                                ScrollableMenuDemo();
+                                needRefresh = true;
                                 break;
                             case 7:
                                 break;
@@ -428,6 +430,66 @@ namespace Demo
                 cHandler.PrintImage("Pikachu", 5, 5);
                 cHandler.PrintImage("Pikachu", 50, 5);
             }
+        }
+
+        public void ScrollableMenuDemo()
+        {
+            cHandler.Reset();
+            Console.Clear();
+            ScrollableMenu<int> menu = new ScrollableMenu<int>(30, 10, 20, 10, Color.Green, Color.Black);
+            for (int i = 1; i <= 30; i++)
+            {
+                menu.AddItem($"{i}", i);
+            }
+            menu.AddItem("Exit", 0);
+
+            FreeStringBundle guide = new FreeStringBundle(5, 20, 30);
+            guide.Add("This menu contains 30 numbered items and an exit button");
+            guide.Add("Q | LeftAlign, W | CenterAlign, E | RightAlign");
+            bool exit = false;
+
+            while (!exit)
+            {
+                guide.Print();
+                menu.Print();
+                ConsoleKey switcher = Console.ReadKey().Key;
+                switch (switcher)
+                {
+                    case ConsoleKey.Enter:
+                        if (menu.GetReturn() == 0)
+                        {
+                            exit = true;
+                        }
+                        break;
+                    case ConsoleKey.UpArrow:
+                        if (!menu.AtTop())
+                        {
+                            Console.Clear();
+                            menu.Up();
+                        }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (!menu.AtBottem())
+                        {
+                            Console.Clear();
+                            menu.Down();
+                        }
+                        break;
+                    case ConsoleKey.Q:
+                        menu.LeftAlign();
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.W:
+                        menu.CenterAlign();
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.E:
+                        menu.RightAlign();
+                        Console.Clear();
+                        break;
+                }
+            }
+
         }
 
         enum Mode { Filled, Hollow }

@@ -9,16 +9,16 @@ namespace ConsoleGameEngine.Components
 {
     public class ScrollableMenu<T> : Menu<T>
     {
-        int maxItemShown;
-        int firstShown = 0, lastShown;
+        int maxItemInScope;
+        int firstInScope = 0, lastInScope;
 
         #region Constructor
         public ScrollableMenu(int positionX, int positionY, int sizeX, int maxItemShown,
             Alignment alignment = Alignment.Center)
             : base(positionX, positionY, sizeX, alignment)
         {
-            this.maxItemShown = maxItemShown;
-            lastShown = maxItemShown - 1;
+            this.maxItemInScope = maxItemShown;
+            lastInScope = maxItemShown - 1;
         }
 
         public ScrollableMenu(int positionX, int positionY, int sizeX, int maxItemShown,
@@ -28,8 +28,8 @@ namespace ConsoleGameEngine.Components
               color1Default, color2Default,
               alignment)
         {
-            this.maxItemShown = maxItemShown;
-            lastShown = maxItemShown - 1;
+            this.maxItemInScope = maxItemShown;
+            lastInScope = maxItemShown - 1;
         }
 
         #endregion
@@ -42,10 +42,10 @@ namespace ConsoleGameEngine.Components
                 menuItems[currentSelectedIndex].OutOfFocus();
                 currentSelectedIndex--;
                 menuItems[currentSelectedIndex].InToFocus();
-                if (currentSelectedIndex < firstShown)
+                if (currentSelectedIndex < firstInScope + 1 && firstInScope != 0)
                 {
-                    firstShown--;
-                    lastShown--;
+                    firstInScope--;
+                    lastInScope--;
                 }
                 return true;
             }
@@ -59,10 +59,10 @@ namespace ConsoleGameEngine.Components
                 menuItems[currentSelectedIndex].OutOfFocus();
                 currentSelectedIndex++;
                 menuItems[currentSelectedIndex].InToFocus();
-                if (currentSelectedIndex > lastShown)
+                if (currentSelectedIndex > lastInScope - 1 && lastInScope != menuItems.Count - 1)
                 {
-                    firstShown++;
-                    lastShown++;
+                    firstInScope++;
+                    lastInScope++;
                 }
                 return true;
             }
@@ -71,11 +71,13 @@ namespace ConsoleGameEngine.Components
         #endregion
 
         #region Gets
-        public int GetMaxShown() => maxItemShown;
-        public bool FirstIsInScope() => firstShown == 0;
-        public bool LastIsInScope() => lastShown >= menuItems.Count - 1;
-        public List<MenuItem<T>> GetMenuItemsInScope() => menuItems.GetRange(firstShown,
-            Math.Min(maxItemShown, menuItems.Count - firstShown));
+        public int GetScopeSize() => maxItemInScope;
+        public bool FirstIsInScope() => firstInScope == 0;
+        public bool LastIsInScope() => lastInScope >= menuItems.Count - 1;
+        public List<MenuItem<T>> GetMenuItemsInScope() => menuItems.GetRange(firstInScope,
+            Math.Min(maxItemInScope, menuItems.Count - firstInScope));
+
+        public int GetFirstItemIndexInScope() => firstInScope;
         #endregion
 
         public override void Print()
