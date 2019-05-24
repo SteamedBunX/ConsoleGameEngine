@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Components\Border.cs" />
     <Compile Include="Components\Canvas.cs" />
-    <Compile Include="Components\Digit.cs" />
     <Compile Include="Components\FreeString.cs" />
     <Compile Include="Components\FreeStringBundle.cs" />
     <Compile Include="Components\Image.cs" />
