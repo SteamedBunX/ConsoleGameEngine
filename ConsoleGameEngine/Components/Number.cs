@@ -8,5 +8,6 @@ namespace ConsoleGameEngine.Components
 {
     public class Number
     {
+
     }
 }
