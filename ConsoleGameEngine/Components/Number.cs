@@ -16,6 +16,7 @@ namespace ConsoleGameEngine.Components
         int positionX, positionY;
         Color color1 = Color.White, color2 = Color.Black;
         int currentSelection = 0;
+        Action<int> selectAction = null;
 
         #region Constructor
         public Number(int positionX, int positionY, int totalDigit, int max = int.MaxValue, int min = 0)
@@ -84,6 +85,16 @@ namespace ConsoleGameEngine.Components
             {
                 currentSelection -= 1;
             }
+        }
+
+        public void SetSelectAction(Action<int> action)
+        {
+            this.selectAction = action;
+        }
+        public int Select()
+        {
+            selectAction?.Invoke(number);
+            return number;
         }
         #endregion
 
