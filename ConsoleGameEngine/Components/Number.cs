@@ -91,11 +91,6 @@ namespace ConsoleGameEngine.Components
         {
             this.selectAction = action;
         }
-        public int Select()
-        {
-            selectAction?.Invoke(number);
-            return number;
-        }
         #endregion
 
         #region Gets
@@ -115,6 +110,14 @@ namespace ConsoleGameEngine.Components
         public int GetNumber() => number;
         public int GetTotalDigit() => totalDigit;
         public int GetCurrentSelection() => currentSelection;
+        #endregion
+
+        #region Reaction
+        public int Select()
+        {
+            selectAction?.Invoke(number);
+            return number;
+        }
         #endregion
 
         public void Print()

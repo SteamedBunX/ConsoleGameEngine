@@ -107,6 +107,7 @@ namespace Demo
                                 break;
                             case 7:
                                 NumberDemo();
+                                needRefresh = true;
                                 break;
                             case 8:
                                 exit = true;
@@ -498,12 +499,14 @@ namespace Demo
             Console.Clear();
 
             Number number = new Number(20, 8, 5, Color.Green, Color.Black, 80021);
+            number.SetSelectAction(PrintCurrentNumber);
 
             bool exit = false;
             while (!exit)
             {
                 number.Print();
                 var input = Console.ReadKey();
+                Console.Clear();
                 switch (input.Key)
                 {
                     case ConsoleKey.Escape:
@@ -521,9 +524,18 @@ namespace Demo
                     case ConsoleKey.RightArrow:
                         number.Right();
                         break;
+                    case ConsoleKey.Enter:
+                        number.Select();
+                        break;
                 }
             }
+
+            void PrintCurrentNumber(int currentValue)
+            {
+                Renderer.PrintFreeString(new FreeString($"The The Value Is {currentValue}", 50, 20));
+            }
         }
+
         enum Mode { Filled, Hollow }
     }
 }
