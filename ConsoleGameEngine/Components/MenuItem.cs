@@ -74,26 +74,17 @@ namespace ConsoleGameEngine.Components
         #region Reactions
         public void InToFocus()
         {
-            if (inToFocusAct != null)
-            {
-                inToFocusAct();
-            }
+            inToFocusAct?.Invoke();
         }
 
         public void OutOfFocus()
         {
-            if (outOfFocusAct != null)
-            {
-                outOfFocusAct();
-            }
+            outOfFocusAct?.Invoke();
         }
 
         public void Selected()
         {
-            if (selectedAct != null)
-            {
-                selectedAct();
-            }
+            selectedAct?.Invoke();
         }
         #endregion
     }
