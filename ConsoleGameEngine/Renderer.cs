@@ -305,14 +305,15 @@ namespace ConsoleGameEngine
                 {
                     if (i == 0 && !menu.FirstIsInScope())
                     {
-                        PrintFreeString(new FreeString("...", dotPosition, currentRow, 
+                        PrintFreeString(new FreeString("...", dotPosition, currentRow,
                             menuitems[i].GetColor1(), menuitems[i].GetColor2(), Alignment.Center));
-                    } else if (i == menuitems.Count-1 && !menu.LastIsInScope())
+                    }
+                    else if (i == menuitems.Count - 1 && !menu.LastIsInScope())
                     {
                         PrintFreeString(new FreeString("...", dotPosition, currentRow,
                             menuitems[i].GetColor1(), menuitems[i].GetColor2(), Alignment.Center));
                     }
-                    else if (i+menu.GetFirstItemIndexInScope() == menu.GetCurrentSelectedIndex())
+                    else if (i + menu.GetFirstItemIndexInScope() == menu.GetCurrentSelectedIndex())
                     {
                         PrintFreeString(new FreeString(menuitems[i].GetText(), positionX, currentRow,
                             menuitems[i].GetColor2(), menuitems[i].GetColor1(), menu.GetAlignment()));
@@ -333,7 +334,28 @@ namespace ConsoleGameEngine
         // Rendering Special "Number" Components
 
         #region Numbers
+        public static void PrintNumber(Number number)
+        {
+            if (IsInScope(number.GetPositionX(), number.GetPositionY(), number.GetTotalDigit(), 1))
+            {
+                for (int i = number.GetTotalDigit() - 1; i >= 0; i--)
+                {
+                    if (number.GetCurrentSelection() == i)
+                    {
+                        SetBackground(number.GetColor1());
+                        SetForeground(number.GetColor2());
+                    }
+                    else
+                    {
+                        SetBackground(number.GetColor2());
+                        SetForeground(number.GetColor1());
+                    }
 
+                    PrintComponent(number[i].ToString(), number.GetPositionX() + number.GetTotalDigit() - 1 - i, number.GetPositionY());
+                }
+                CleanUp();
+            }
+        }
         #endregion
 
         // Since colors are represented by hex number inside the "bitmap"s , they need to be read accordingly

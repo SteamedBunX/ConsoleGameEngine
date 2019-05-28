@@ -106,6 +106,7 @@ namespace Demo
                                 needRefresh = true;
                                 break;
                             case 7:
+                                NumberDemo();
                                 break;
                             case 8:
                                 exit = true;
@@ -492,6 +493,37 @@ namespace Demo
 
         }
 
+        public void NumberDemo()
+        {
+            Console.Clear();
+
+            Number number = new Number(20, 8, 5, Color.Green, Color.Black, 80021);
+
+            bool exit = false;
+            while (!exit)
+            {
+                number.Print();
+                var input = Console.ReadKey();
+                switch (input.Key)
+                {
+                    case ConsoleKey.Escape:
+                        exit = true;
+                        break;
+                    case ConsoleKey.UpArrow:
+                        number.Up();
+                        break;
+                    case ConsoleKey.DownArrow:
+                        number.Down();
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        number.Left();
+                        break;
+                    case ConsoleKey.RightArrow:
+                        number.Right();
+                        break;
+                }
+            }
+        }
         enum Mode { Filled, Hollow }
     }
 }

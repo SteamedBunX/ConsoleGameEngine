@@ -24,8 +24,9 @@ namespace ConsoleGameEngine.Components
             this.positionY = positionY;
             this.totalDigit = totalDigit;
             number = 0;
-            this.max = Math.Min((int)Math.Pow(10, totalDigit - 1) - 1, max);
+            this.max = Math.Min((int)Math.Pow(10, totalDigit) - 1, max);
             this.min = min > 0 ? min : 0;
+            currentSelection = totalDigit - 1;
         }
 
         public Number(int positionX, int positionY, int totalDigit, Color color1, Color color2, int max = int.MaxValue, int min = 0)
@@ -66,7 +67,7 @@ namespace ConsoleGameEngine.Components
         {
             number -= (int)Math.Pow(10, currentSelection);
             // make sure the number does not get lower than min.
-            number = number > min ? number : max;
+            number = number > min ? number : min;
         }
 
         public void Left()
@@ -88,14 +89,26 @@ namespace ConsoleGameEngine.Components
 
         #region Gets
 
+        public int this[int digit]
+        {
+            get
+            {
+                return (number % (int)Math.Pow(10, digit + 1)) / (int)Math.Pow(10, digit);
+            }
+        }
+
+        public int GetPositionX() => positionX;
+        public int GetPositionY() => positionY;
+        public Color GetColor1() => color1;
+        public Color GetColor2() => color2;
         public int GetNumber() => number;
         public int GetTotalDigit() => totalDigit;
-        public int GetCurrentSelection => currentSelection;
+        public int GetCurrentSelection() => currentSelection;
         #endregion
 
         public void Print()
         {
-
+            Renderer.PrintNumber(this);
         }
     }
 }
