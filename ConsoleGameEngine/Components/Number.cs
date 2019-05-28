@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,16 +13,28 @@ namespace ConsoleGameEngine.Components
         int totalDigit;
         int max = int.MaxValue;
         int min = 0;
+        int positionX, positionY;
+        Color color1 = Color.White, color2 = Color.Black;
         int currentSelection = 0;
 
         #region Constructor
-        public Number(int totalDigit, int max = int.MaxValue, int min = 0)
+        public Number(int positionX, int positionY, int totalDigit, int max = int.MaxValue, int min = 0)
         {
+            this.positionX = positionX;
+            this.positionY = positionY;
             this.totalDigit = totalDigit;
             number = 0;
             this.max = Math.Min((int)Math.Pow(10, totalDigit - 1) - 1, max);
             this.min = min > 0 ? min : 0;
         }
+
+        public Number(int positionX, int positionY, int totalDigit, Color color1, Color color2, int max = int.MaxValue, int min = 0)
+            : this(positionX, positionY, totalDigit, max, min)
+        {
+            this.color1 = color1;
+            this.color2 = color2;
+        }
+
         #endregion
 
         #region Manipulation
